@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.SettingsFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginRight="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="Select the news categories you want to see on your home screen:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="172dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.167">
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Nature"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:useMaterialThemeColors="false" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Sport"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:useMaterialThemeColors="false" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            style="@style/MyCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:duplicateParentState="true"
+            android:editable="true"
+            android:enabled="false"
+            android:focusable="auto"
+
+            android:fontFamily="@font/roboto"
+            android:freezesText="false"
+            android:layerType="none"
+            android:text="Politics"
+            android:textAppearance="@style/MyCustomTextAppearance"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:useMaterialThemeColors="false" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:fontFamily="@font/roboto"
+            android:text="Science"
+            android:textColor="#000000"
+            android:textSize="16sp"
+
+            app:useMaterialThemeColors="false" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
