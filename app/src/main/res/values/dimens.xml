@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardView_size">336dp</dimen>
+    <dimen name="font_size">8dp</dimen>
+
+</resources>

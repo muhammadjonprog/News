@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="336dp"
-    android:layout_margin="8dp"
+    style="@style/CardViewBG"
     app:cardCornerRadius="12dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    android:id="@+id/cardView">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    app:cardCornerRadius="12dp">
+    <ImageView
+        android:id="@+id/imageNews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@color/teal_200" />
+</androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imageNews"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:srcCompat="@color/teal_200" />
+
 
 
         <TextView
             android:id="@+id/titleNews"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:fontFamily="@font/roboto"
+            style="@style/TextViewMy"
             android:text="Tesla removes dates about Cybertruck production from its website"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -36,21 +37,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
+            android:layout_margin="2dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/descriptionNews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="16dp"
-                android:fontFamily="@font/roboto"
+                style="@style/TextViewMy"
+                android:layout_gravity="start"
+                android:gravity="start"
                 android:text="Elon Musk-owned electric vehicle company Tesla has reportedly removed the dates about Cybertruck production from its website."
                 android:textColor="#5C7282"
-                android:textSize="14sp"
-                android:textStyle="normal" />
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 

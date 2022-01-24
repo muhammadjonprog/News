@@ -1,7 +1,6 @@
 package com.saidov.news2022.model
 
 import com.google.gson.annotations.SerializedName
-
 /**
  * Created by MUHAMMADJON SAIDOV on 15,январь,2022
  * saidov.developer@gmail.com
@@ -10,8 +9,9 @@ import com.google.gson.annotations.SerializedName
  */
 data class Source(
     @SerializedName("id")
-    var id: String? = null,
+    val id: Any,
     @SerializedName("name")
-    var name: String)
+    val name: String
+    )
 
 

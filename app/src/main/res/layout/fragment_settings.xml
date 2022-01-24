@@ -6,40 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".view.SettingsFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginRight="16dp"
-        android:fontFamily="@font/roboto"
-        android:text="Select the news categories you want to see on your home screen:"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="172dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_round"
+        android:elevation="6dp"
         android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.167">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.281">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/textCategory"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Nature"
+            android:text="@string/nature"
             android:textColor="#000000"
             android:textSize="16sp"
             app:useMaterialThemeColors="false" />
@@ -49,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Sport"
+            android:text="@string/sport"
             android:textColor="#000000"
             android:textSize="16sp"
             app:useMaterialThemeColors="false" />
@@ -59,17 +61,8 @@
             style="@style/MyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:duplicateParentState="true"
-            android:editable="true"
-            android:enabled="false"
-            android:focusable="auto"
-
             android:fontFamily="@font/roboto"
-            android:freezesText="false"
-            android:layerType="none"
-            android:text="Politics"
-            android:textAppearance="@style/MyCustomTextAppearance"
+            android:text="@string/politics"
             android:textColor="#000000"
             android:textSize="16sp"
             app:useMaterialThemeColors="false" />
@@ -79,11 +72,55 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:fontFamily="@font/roboto"
-            android:text="Science"
+            android:text="@string/science"
             android:textColor="#000000"
             android:textSize="16sp"
 
             app:useMaterialThemeColors="false" />
-    </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/business"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:useMaterialThemeColors="false" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Выбор темы:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="День"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioNight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="Ночь"
+                android:textSize="16sp" />
+        </RadioGroup>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

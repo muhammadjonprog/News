@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">#212121</item>
         <item name="colorControlActivated">#212121</item>
@@ -7,8 +8,35 @@
 
 
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
-    <item name="textAllCaps">false</item>
-    <item name="android:textAllCaps">false</item>
-    <item name="android:padding">2dp</item>
-</style>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+
+    <style name="CardViewBG" parent="CardView">
+       <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/cardView_size</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="TextViewMy">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/font_size</item>
+        <item name="android:layout_marginTop">@dimen/font_size</item>
+        <item name="android:layout_marginRight">@dimen/font_size</item>
+        <item name="android:fontFamily">@font/roboto</item>
+
+    </style>
+
+    <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/cardView_size</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+
+
 </resources>

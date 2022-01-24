@@ -1,5 +1,7 @@
 package com.saidov.news2022.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -7,20 +9,25 @@ import com.google.gson.annotations.SerializedName
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
+@Entity(
+    tableName = "articles"
+)
 data class Article(
-    @SerializedName("source")
-    var source: Source,
+    @PrimaryKey(autoGenerate = true) //adding id as primary key to the table and the class
+    var id: Int?= null, //not all articles will have id, so setting it to null
+   @SerializedName("source")
+    val source: Source?,
     @SerializedName("author")
-    var author: String?,
-    @SerializedName("title")
-    var title: String?,
-    @SerializedName("description")
-    var description: String?,
+    val author: String,
+ @SerializedName("title")
+    val title: String,
+   @SerializedName("description")
+    val description: String,
     @SerializedName("url")
-    var url: String?,
+    val url: String?,
     @SerializedName("urlToImage")
-    var urlToImage: String?,
+    val urlToImage: String,
     @SerializedName("publishedAt")
-    var publishedAt: String?,
+    val publishedAt: String?,
     @SerializedName("content")
-    var content: String? )
+    val content: String? )
