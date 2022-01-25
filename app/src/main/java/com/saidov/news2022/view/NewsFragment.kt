@@ -59,7 +59,7 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
             if (it != null){
                 newsNewsAdapter.updatedData(it.articles)
                 progressBar.visibility = View.INVISIBLE
-                Log.i("NEWS",it.articles.get(1).title)
+                Log.i("NEWS",it.articles.get(0).title)
             }else{
                 Toast.makeText(activity,"Error",Toast.LENGTH_SHORT).show()
             }
@@ -95,19 +95,20 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
 
     override fun itemOnClickListener(item: Article) {
        sendData(item)
+        viewModel.insertHistory(item)
     }
 
     override fun itemOnLongClickListener(item: Article,v : View) {
-        popupMenus(v)
+        popupMenus(v,item)
     }
 
-    private fun popupMenus(v : View){
+    private fun popupMenus(v : View,item: Article){
         val popupMenus = PopupMenu(v.context,v)
         popupMenus.inflate(R.menu.menu_popup)
         popupMenus.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.addFavorite->{
-                    Toast.makeText(v.context,"Click",Toast.LENGTH_SHORT).show()
+                    viewModel.insertFavorite(item)
                     true
                 }
                 else -> true

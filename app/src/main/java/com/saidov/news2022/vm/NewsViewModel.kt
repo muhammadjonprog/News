@@ -1,10 +1,11 @@
 package com.saidov.news2022.vm
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import com.saidov.news2022.model.Article
 import com.saidov.news2022.model.NewsResponse
 import com.saidov.news2022.network.ApiClient
+import com.saidov.news2022.repository.NewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -16,43 +17,57 @@ import retrofit2.Response
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-class NewsViewModel() : ViewModel() {
+class NewsViewModel(context: Application) : AndroidViewModel(context) {
+   lateinit var  newsRepository : NewsRepository
+    var  allHistory : LiveData<List<Article>> = MutableLiveData()
     var  breakingNews : MutableLiveData<NewsResponse> = MutableLiveData()
+
+   init {
+       newsRepository = NewsRepository(context)
+      // allHistory = newsRepository.getArticleHistory()
+   }
+
 
     fun getNewsObserver() : MutableLiveData<NewsResponse>{
         return breakingNews
     }
 
-    fun makeApiCall(category: String){
+//    fun getHistoryObserver() : LiveData<List<Article>> {
+//        return allHistory
+//    }
+    fun getHistoryObserver() = newsRepository.getArticleHistory()
+
+
+    fun insertHistory(article: Article)= viewModelScope.launch(Dispatchers.IO) {
+        newsRepository.insertNewsHistory(article)
+    }
+
+    fun insertFavorite(article: Article) = viewModelScope.launch(Dispatchers.IO) {
+        newsRepository.insertNewsFavorites(article)
+    }
+
+    fun makeApiCall(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
-           //val retro = RetrofitInstance.getRetrofit().create(RetroService::class.java)
+            //newsRepository.getBreakingNews()
             val retro = ApiClient.api
             val response = retro.getBreakingNews("ru",category)
             breakingNews.postValue(response)
         }
     }
-    fun make(){
+
+    fun make() {
         viewModelScope.launch(Dispatchers.IO) {
-            //  var retro = RetrofitInstance.getRetrofit().create(RetroService::class.java)
             val retro = ApiClient.api
             val call = retro.getN()
-            //val response = retro.getNews()
-            //val response = retro.getNewsCategory(category)
-            //breakingNews.postValue(response)
             call.enqueue(object : Callback<NewsResponse?> {
                 override fun onResponse(
                     call: Call<NewsResponse?>,
                     response: Response<NewsResponse?>) {
-
                     breakingNews.postValue(response.body())
                 }
-
                 override fun onFailure(call: Call<NewsResponse?>, t: Throwable) {
-
                 }
             })
         }
     }
-
-
 }

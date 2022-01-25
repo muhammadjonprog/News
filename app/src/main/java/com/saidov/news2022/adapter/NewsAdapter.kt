@@ -22,13 +22,12 @@ import com.saidov.news2022.view.DetailFragment
  * Created by MUHAMMADJON SAIDOV on 22,январь,2022
  * saidov.developer@gmail.com
  * http://muhammad.com/
- *
  */
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
     private var newsResponse = ArrayList<Article>()
 
-    private var callBack: NewsAdapterCallBack? = null
+    private var callBack : NewsAdapterCallBack? = null
 
   inner  class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 

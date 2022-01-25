@@ -16,7 +16,7 @@ data class Article(
     @PrimaryKey(autoGenerate = true) //adding id as primary key to the table and the class
     var id: Int?= null, //not all articles will have id, so setting it to null
    @SerializedName("source")
-    val source: Source?,
+    var source: Source?,
     @SerializedName("author")
     val author: String,
  @SerializedName("title")
