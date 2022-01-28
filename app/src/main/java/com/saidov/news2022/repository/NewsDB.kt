@@ -1,4 +1,4 @@
-package com.saidov.news2022.db
+package com.saidov.news2022.repository
 
 import android.content.Context
 import android.database.Cursor
@@ -18,9 +18,11 @@ import java.sql.SQLException
  * http://muhammad.com/
  */
 
-open class NewsDB(private val context: Context) : SQLiteOpenHelper(context,DB_NAME,null, DB_VERSION) {
+open class NewsDB(private val context: Context) : SQLiteOpenHelper(context,
+    DB_NAME,null, DB_VERSION
+) {
     private  var DB_PATH: String
-    private var mDataBase: SQLiteDatabase? = null
+   open var mDataBase: SQLiteDatabase? = null
 
     init {
         DB_PATH = "/data/data/" + context.packageName + "/databases/"
@@ -117,6 +119,16 @@ open class NewsDB(private val context: Context) : SQLiteOpenHelper(context,DB_NA
             mDataBase?.execSQL(sql)
         } catch (ex: Exception) {
             Log.e(TAG, ex.message!!)
+        }
+    }
+
+    fun ExecuteWithResult(sql: String?):Boolean {
+        return try {
+            mDataBase?.execSQL(sql)
+            true
+        } catch (ex: Exception) {
+            Log.e(TAG, ex.message!!)
+            false
         }
     }
 

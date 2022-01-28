@@ -14,18 +14,18 @@ import android.widget.PopupMenu
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saidov.news2022.R
 import com.saidov.news2022.adapter.NewsAdapter
-import com.saidov.news2022.adapter.NewsAdapterCallBack
 import com.saidov.news2022.model.Article
 import com.saidov.news2022.model.NewsResponse
 import com.saidov.news2022.vm.NewsViewModel
 
 
-class NewsFragment : Fragment(), NewsAdapterCallBack {
+class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener {
 
     lateinit var newsNewsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
@@ -47,15 +47,14 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
         progressBar = view.findViewById(R.id.pbNews)
         val manager: LinearLayoutManager = GridLayoutManager(context, 1)
         recyclerView.layoutManager = manager
-        newsNewsAdapter = NewsAdapter()
-        newsNewsAdapter.setCallBack(this)
+        newsNewsAdapter = NewsAdapter(this,this)
         recyclerView.adapter = newsNewsAdapter
         progressBar.visibility = View.VISIBLE
     }
     private fun initViewModel(){
-        //val viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
-        viewModel= (activity as MainActivity).newsViewModel
-        viewModel.getNewsObserver().observe(viewLifecycleOwner, Observer<NewsResponse> {
+        viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
+//        viewModel= (activity as MainActivity).newsViewModel
+        viewModel.breakingNews.observe(viewLifecycleOwner, Observer<NewsResponse> {
             if (it != null){
                 newsNewsAdapter.updatedData(it.articles)
                 progressBar.visibility = View.INVISIBLE
@@ -65,7 +64,7 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
             }
         })
         if (hasInternetConnection()){
-            viewModel.makeApiCall("business")
+            viewModel.getNewsApi("sports")
         }else {
             Toast.makeText(context, "Нет подключение к интернету", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.INVISIBLE
@@ -93,18 +92,9 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
         }
     }
 
-    override fun itemOnClickListener(item: Article) {
-       sendData(item)
-        viewModel.insertHistory(item)
-    }
-
-    override fun itemOnLongClickListener(item: Article,v : View) {
-        popupMenus(v,item)
-    }
-
     private fun popupMenus(v : View,item: Article){
         val popupMenus = PopupMenu(v.context,v)
-        popupMenus.inflate(R.menu.menu_popup)
+        popupMenus.inflate(R.menu.menu_popup_add)
         popupMenus.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.addFavorite->{
@@ -132,7 +122,23 @@ class NewsFragment : Fragment(), NewsAdapterCallBack {
         bundle.putString("publishedAt",item.publishedAt)
         val detailFragment = DetailFragment()
         detailFragment.arguments = bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,detailFragment)?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView,detailFragment)?.addToBackStack(this::class.java.simpleName)?.commit()
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        v?.let {
+           val article = it.tag as Article
+            popupMenus(v,article)
+        }
+        return true
+    }
+
+    override fun onClick(v: View?) {
+        v?.let {
+            val article = it.tag as Article
+            sendData(article)
+            viewModel.insertHistory(article)
+        }
     }
 }
 

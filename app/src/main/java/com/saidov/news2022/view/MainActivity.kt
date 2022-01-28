@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val favoritesFragment = FavoritesFragment()
     private val settingsFragment = SettingsFragment()
 
-    lateinit var newsViewModel: NewsViewModel
+//    lateinit var newsViewModel: NewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav = findViewById(R.id.bottomNav)
         bottomNav.setBackgroundDrawable(getDrawable(R.drawable.bg_round_bottom))
 
-        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+       // newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){

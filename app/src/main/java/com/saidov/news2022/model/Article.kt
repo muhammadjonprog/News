@@ -13,8 +13,7 @@ import com.google.gson.annotations.SerializedName
     tableName = "articles"
 )
 data class Article(
-    @PrimaryKey(autoGenerate = true) //adding id as primary key to the table and the class
-    var id: Int?= null, //not all articles will have id, so setting it to null
+    var id: Long, //not all articles will have id, so setting it to null
    @SerializedName("source")
     var source: Source?,
     @SerializedName("author")

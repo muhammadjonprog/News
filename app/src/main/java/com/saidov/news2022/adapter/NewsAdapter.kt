@@ -23,18 +23,16 @@ import com.saidov.news2022.view.DetailFragment
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+class NewsAdapter(val onClickListener: View.OnClickListener, val onLongClickListener: View.OnLongClickListener) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
     private var newsResponse = ArrayList<Article>()
 
-    private var callBack : NewsAdapterCallBack? = null
 
   inner  class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
        private val itemTitle : TextView = itemView.findViewById<TextView>(R.id.titleNews)
        private val itemDescription : TextView = itemView.findViewById<TextView>(R.id.descriptionNews)
        private val itemImage : ImageView = itemView.findViewById<ImageView>(R.id.imageNews)
-       private val cardView : CardView = itemView.findViewById<CardView>(R.id.cardView)
 
 
         fun bind(newsResponse: Article){
@@ -45,21 +43,13 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
                 .load(newsResponse.urlToImage)
                 .into(itemImage)
 
-            cardView.setOnClickListener {
-                callBack?.itemOnClickListener(newsResponse)
+            itemView.setOnClickListener(onClickListener)
 
-            }
-
-            cardView.setOnLongClickListener {
-                callBack?.itemOnLongClickListener(newsResponse,it)
-                true
-            }
+            itemView.setOnLongClickListener(onLongClickListener)
+            itemView.tag = newsResponse
         }
     }
 
-    fun setCallBack(callBack: NewsAdapterCallBack){
-        this.callBack = callBack
-    }
 
     fun updatedData(newsResponse : ArrayList<Article>){
         this.newsResponse = newsResponse
