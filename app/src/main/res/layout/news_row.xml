@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
     style="@style/CardViewBG"
     app:cardCornerRadius="12dp"
-    app:cardElevation="8dp"
-    android:id="@+id/cardView">
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="160dp"
-    app:cardCornerRadius="12dp">
-    <ImageView
-        android:id="@+id/imageNews"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:srcCompat="@color/teal_200" />
-</androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            app:cardCornerRadius="12dp">
 
+            <ImageView
+                android:id="@+id/imageNews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@color/teal_200" />
+        </androidx.cardview.widget.CardView>
 
 
         <TextView
@@ -47,7 +50,7 @@
                 android:gravity="start"
                 android:text="Elon Musk-owned electric vehicle company Tesla has reportedly removed the dates about Cybertruck production from its website."
                 android:textColor="#5C7282"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 

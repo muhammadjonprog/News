@@ -76,7 +76,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.saidov.news2022.view.NewsFragment"
+        android:name="com.saidov.news2022.modules.main.home.NewsFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"

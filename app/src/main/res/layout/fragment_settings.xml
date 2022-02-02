@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.SettingsFragment">
+    tools:context=".modules.main.settings.SettingsFragment">
 
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkNature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
@@ -47,7 +47,7 @@
             app:useMaterialThemeColors="false" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkSport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
@@ -57,7 +57,7 @@
             app:useMaterialThemeColors="false" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkPolitics"
             style="@style/MyCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             app:useMaterialThemeColors="false" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/checkScience"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:fontFamily="@font/roboto"
@@ -78,7 +78,7 @@
 
             app:useMaterialThemeColors="false" />
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/checkBusiness"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:fontFamily="@font/roboto"
@@ -87,40 +87,5 @@
             android:textSize="16sp"
             app:useMaterialThemeColors="false" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="Выбор темы:"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/radioDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="День"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/radioNight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Ночь"
-                android:textSize="16sp" />
-        </RadioGroup>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

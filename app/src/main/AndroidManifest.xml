@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.News2022">
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.saidov.news2022.modules.main.ui.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
