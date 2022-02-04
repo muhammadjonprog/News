@@ -28,29 +28,30 @@ import java.net.SocketTimeoutException
 
 class MainViewModel(
     private val context: Application,
-    private val networkRepository: NetworkRepository,
-    private val sqlRepository: SqlRepository
-) : AndroidViewModel(context) {
+    private val networkRepository : NetworkRepository,
+    private val sqlRepository : SqlRepository
+) : ViewModel()  {
+
     private val mAllHistory = MutableLiveData<ArrayList<Article>>()
-    var allHistory: LiveData<ArrayList<Article>> = mAllHistory
+    var allHistory : LiveData<ArrayList<Article>> = mAllHistory
 
     private val mAllFavorite = MutableLiveData<ArrayList<Article>>()
     var allFavorite: LiveData<ArrayList<Article>> = mAllFavorite
 
     //private val mAllBreakingNews = MutableLiveData<Response<NewsResponse>>()
     private val mAllBreakingNews = MutableLiveData<Resource<NewsResponse>>()
-    //var breakingNews : MutableLiveData<Response<NewsResponse>> = mAllBreakingNews
 
-    var breakingNewsResponse: NewsResponse? = null
 
-    val breakingNews: MutableLiveData<Resource<NewsResponse>> = mAllBreakingNews
+    var breakingNewsResponse : NewsResponse? = null
+
+    val breakingNews : MutableLiveData<Resource<NewsResponse>> = mAllBreakingNews
 
     fun loadHistory() {
         viewModelScope.launch {
             val response = sqlRepository.getArticleHistory()
             mAllHistory.postValue(response)
         }
-    }
+    } //var breakingNews : MutableLiveData<Response<NewsResponse>> = mAllBreakingNews
 
     fun loadFavorite() {
         viewModelScope.launch {
@@ -134,7 +135,7 @@ class MainViewModel(
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<NewsApplication>().getSystemService(
+        val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false

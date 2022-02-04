@@ -9,13 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.saidov.news2022.R
 import com.saidov.news2022.modules.main.favorite.FavoritesFragment
 import com.saidov.news2022.modules.main.history.HistoryFragment
 import com.saidov.news2022.modules.main.home.NewsFragment
 import com.saidov.news2022.modules.main.settings.SettingsFragment
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
 import com.saidov.news2022.modules.main.ui.vm.MainViewModelProviderFactory
+import com.saidov.news2022.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
     private val historyFragment = HistoryFragment()
     private val favoritesFragment = FavoritesFragment()
     private val settingsFragment = SettingsFragment()
-    lateinit var mainViewModel: MainViewModel
+//    lateinit var mainViewModel: MainViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val viewModelProviderFactory = MainViewModelProviderFactory(application)
-        mainViewModel = ViewModelProvider(this,viewModelProviderFactory)
-            .get(MainViewModel::class.java)
+//        val viewModelProviderFactory = MainViewModelProviderFactory(application)
+//        mainViewModel = ViewModelProvider(this,viewModelProviderFactory)
+//            .get(MainViewModel::class.java)
 
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){

@@ -11,18 +11,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.saidov.news2022.R
+
+
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
 import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-    lateinit var viewModel: MainViewModel
+    private  val viewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +50,9 @@ class HistoryFragment : Fragment(), View.OnClickListener, View.OnLongClickListen
     }
 
     private fun initViewModel() {
-        viewModel = (activity as MainActivity).mainViewModel
-        viewModel.allHistory.observe(viewLifecycleOwner, {
+        viewModel.allHistory.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())
-        })
+        }
         viewModel.loadHistory()
         progressBar.visibility = View.INVISIBLE
     }

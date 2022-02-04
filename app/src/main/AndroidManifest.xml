@@ -6,7 +6,7 @@
 
 
     <application
-        android:name=".app.NewsApplication"
+        android:name="com.saidov.news2022.app.NewsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

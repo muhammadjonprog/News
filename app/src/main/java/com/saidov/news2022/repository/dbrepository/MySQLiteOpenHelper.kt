@@ -67,7 +67,6 @@ open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(c
 
     @Throws(IOException::class)
     private fun createDataBase() {
-        //If the database does not exist, copy it from the assets.
         if (!checkDataBase()) {
             this.readableDatabase
             close()

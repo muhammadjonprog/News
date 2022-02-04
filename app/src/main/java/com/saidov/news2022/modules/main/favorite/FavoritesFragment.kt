@@ -12,23 +12,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.saidov.news2022.R
+
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
-import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.view.MainActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-    lateinit var viewModel: MainViewModel
+    private  val viewModel by viewModel<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
         initData(view)
@@ -64,14 +66,10 @@ class FavoritesFragment : Fragment(), View.OnClickListener, View.OnLongClickList
     }
 
     private fun initViewModel() {
-        //viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
-
-        viewModel = (activity as MainActivity).mainViewModel
-
-        viewModel.allFavorite.observe(viewLifecycleOwner, {
+        viewModel.allFavorite.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())
 
-        })
+        }
         viewModel.loadFavorite()
         progressBar.visibility = View.INVISIBLE
     }

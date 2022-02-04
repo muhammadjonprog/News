@@ -1,7 +1,6 @@
 package com.saidov.news2022.repository.networkrepository.repository
 
 import com.saidov.news2022.modules.main.ui.model.NewsResponse
-import com.saidov.news2022.repository.networkrepository.api.Api
 import retrofit2.Response
 
 /**

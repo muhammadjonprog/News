@@ -1,9 +1,5 @@
 package com.saidov.news2022.modules.main.home
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,7 +22,6 @@ import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
-import com.saidov.news2022.other.Constants.Companion.QUERY_PAGE_SIZE
 import com.saidov.news2022.repository.networkrepository.event.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,12 +29,9 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-    lateinit var viewModel : MainViewModel
-    //private val newsViewModel by viewModel<MainViewModel>()
     lateinit var tab : TabLayout
+    private  val viewModel by viewModel<MainViewModel>()
 
-//    lateinit var viewPager : ViewPager
-//    lateinit var adapterPager : ViewPagerAdapter
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +56,6 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
         newsAdapter = NewsAdapter(this,this)
         recyclerView.adapter = newsAdapter
         progressBar.visibility = View.VISIBLE
-
 //        adapterPager = ViewPagerAdapter(requireFragmentManager())
 //        for (i in 0..5) {
 //            adapterPager.addFragment(Fragment(i), "ONE")
@@ -76,8 +66,6 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun initViewModel(view : View){
-        viewModel= (activity as MainActivity).mainViewModel
-
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response->
             when(response){
                 is Resource.Success->{
@@ -121,7 +109,7 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
             when(it.itemId){
                 R.id.addFavorite->{
                     viewModel.saveFavorite(item)
-                    Snackbar.make(v, "Новости добавлен в истории", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(v, "Новости добавлен в избранные", Snackbar.LENGTH_SHORT).show()
                     true
                 }
                 else -> true

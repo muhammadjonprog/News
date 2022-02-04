@@ -1,10 +1,6 @@
 package com.saidov.news2022.repository.dbrepository
 
-import android.annotation.SuppressLint
-import android.database.Cursor
 import com.saidov.news2022.modules.main.ui.model.Article
-import com.saidov.news2022.modules.main.ui.model.Source
-
 
 /**
  * Created by MUHAMMADJON SAIDOV on 30,январь,2022
@@ -24,5 +20,4 @@ interface SqlRepository  {
     fun deleteHistory(id: Long) : Boolean
 
     fun deleteFavorite(id : Long) : Boolean
-
 }
