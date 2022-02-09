@@ -1,7 +1,7 @@
 package com.saidov.news2022.app
 
 import android.app.Application
-import com.saidov.news2022.core.di.repoModule
+import com.saidov.news2022.core.di.repositoryModule
 import com.saidov.news2022.core.di.vmModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +19,7 @@ class NewsApplication : Application() {
         startKoin {
             androidLogger(org.koin.core.logger.Level.DEBUG)
             androidContext(this@NewsApplication)
-            modules(listOf(repoModule, vmModule))
+            modules(listOf(repositoryModule, vmModule))
         }
     }
 }

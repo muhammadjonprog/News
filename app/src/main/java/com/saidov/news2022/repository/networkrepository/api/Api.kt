@@ -14,70 +14,33 @@ import retrofit2.http.Query
  */
 interface Api {
 
-//    @GET("v2/top-headlines")
-//
-//    suspend fun getBreakingNews(
-//
-//        @Query("country")
-//        countryCode: String = "ru", //default to us
-//
-//        @Query("category")
-//        category: String = "sports",
-//
-//        @Query("page")  //to paginate the request
-//        pageNumber: Int= 1,
-//
-//        @Query("apiKey")
-//        apiKey: String= API_KEY
-//
-//    ): ResponseWrapper<NewsResponse> //return response
-
     @GET("v2/top-headlines")
-
-    suspend fun getBreakingNews(
-
+    fun getBreakingNews(
         @Query("country")
         countryCode: String = "ru", //default to us
-
         @Query("category")
         category: String = "sports",
-
         @Query("page")  //to paginate the request
-        pageNumber: Int= 1,
-
-        @Query("apiKey")
-        apiKey: String= API_KEY
-    ) : Response<NewsResponse>
-
-//
-//    @GET("5dcc12d554000064009c20fc")
-//    suspend fun getUsers(
-//        @Query("page") page: Int
-//    ): ResponseWrapper<Users>
+        pageNumber: Int= 1
+    ) : Call<NewsResponse>
 
 
-
-    //search
-    //https://newsapi.org/v2/top-headlines?country=ru&category=business&q=Китай&apiKey=9a08716b46e54472ae8e71c450b67d2c
-    @GET("v2/everything")
-
-    suspend fun searchForNews(
-        //request parameters to function
-        @Query("q")
-        searchQuery: String,
-        @Query("page")  //to paginate the request
-        pageNumber: Int= 1,
-        @Query("apiKey")
-        apiKey: String= API_KEY
-    ): Response<NewsResponse> //return response
-
-    @GET("/v2/top-headlines?country=ru&apiKey=9a08716b46e54472ae8e71c450b67d2c")
-
-    suspend fun getNewsCategory(
+    @GET("v2/top-headlines")
+    fun getNewsByCategory(
+        @Query("country")
+        countryCode: String?,
         @Query("category")
         category: String
-    ): NewsResponse//return response
+    ) : Call<NewsResponse>
 
-    @GET("/v2/top-headlines?country=ru&category=sports&apiKey=9a08716b46e54472ae8e71c450b67d2c")
-    suspend fun getN():Call<NewsResponse>
+
+    @GET("v2/everything")
+
+     fun search(
+
+        @Query("q")
+        searchQuery: String
+
+    ): Call<NewsResponse> //return response
+
 }

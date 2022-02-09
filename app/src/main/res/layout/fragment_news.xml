@@ -5,65 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="8dp"
-    tools:context=".modules.main.home.NewsFragment">
+    tools:context=".modules.main.home.ui.view.NewsFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         style="MyCustomTextAppearance"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="4dp"
         android:elevation="10dp"
         android:importantForAccessibility="no"
         android:layerType="none"
         android:textAlignment="textEnd"
         android:textDirection="ltr"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewNews"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable"
         app:tabGravity="center"
         app:tabIndicatorColor="#000000"
-        app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="3dp"
         app:tabTextAppearance="@style/MyCustomTextAppearance"
-        app:tabTextColor="#000000" />
+        app:tabTextColor="#000000"/>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewNews"
-        android:layout_width="0dp"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/news_row" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
-<!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/viewpager"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />-->
 
-    <ProgressBar
-        android:id="@+id/pbNews"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.478" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,24 +1,14 @@
 package com.saidov.news2022.modules.main.ui.vm
 
-import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.saidov.news2022.app.NewsApplication
+import com.saidov.news2022.core.viewmodel.BaseViewModel
+import com.saidov.news2022.modules.main.settings.model.SettingsCategoryModel
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.ui.model.NewsResponse
-import com.saidov.news2022.repository.dbrepository.SqlRepository
-import com.saidov.news2022.repository.networkrepository.repository.NetworkRepository
 import com.saidov.news2022.repository.networkrepository.event.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.io.IOException
-import java.net.ConnectException
-import java.net.SocketTimeoutException
 
 /**
  * Created by MUHAMMADJON SAIDOV on 22,январь,2022
@@ -26,55 +16,71 @@ import java.net.SocketTimeoutException
  * http://muhammad.com/
  */
 
-class MainViewModel(
-    private val context: Application,
-    private val networkRepository : NetworkRepository,
-    private val sqlRepository : SqlRepository
-) : ViewModel()  {
+class MainViewModel() : BaseViewModel() {
 
     private val mAllHistory = MutableLiveData<ArrayList<Article>>()
-    var allHistory : LiveData<ArrayList<Article>> = mAllHistory
+    var allHistory: LiveData<ArrayList<Article>> = mAllHistory
 
     private val mAllFavorite = MutableLiveData<ArrayList<Article>>()
     var allFavorite: LiveData<ArrayList<Article>> = mAllFavorite
 
-    //private val mAllBreakingNews = MutableLiveData<Response<NewsResponse>>()
     private val mAllBreakingNews = MutableLiveData<Resource<NewsResponse>>()
+    val breakingNews: MutableLiveData<Resource<NewsResponse>> = mAllBreakingNews
 
+    private val mSettingsCategory = MutableLiveData<ArrayList<SettingsCategoryModel>>().apply {
+        val list: ArrayList<SettingsCategoryModel> = ArrayList()
+        val sport = SettingsCategoryModel("sport", "ru", "ru", "Спорт", true)
+        list.add(sport)
+        val business = SettingsCategoryModel("business", "ru", "ru", "Бизнес", true)
+        list.add(business)
+        val science = SettingsCategoryModel("science", "ru", "ru", "Наука", true)
+        list.add(science)
+        val politics = SettingsCategoryModel("politics", "ru", "ru", "Политика", true)
+        list.add(politics)
+        value = list
+    }
+    var settingsCategory: MutableLiveData<ArrayList<SettingsCategoryModel>> = mSettingsCategory
 
-    var breakingNewsResponse : NewsResponse? = null
+    private val mNewsMutableHash = HashMap<String, MutableLiveData<Response<Article>>>()
+    val newsLiveDataMap: Map<String, LiveData<Response<Article>>> = mNewsMutableHash
 
-    val breakingNews : MutableLiveData<Resource<NewsResponse>> = mAllBreakingNews
+    fun addToHash(text: String) {
+        mNewsMutableHash.put(text, MutableLiveData())
+    }
+
+    fun removeFromHash(text: String) {
+        mNewsMutableHash.remove(text)
+    }
 
     fun loadHistory() {
         viewModelScope.launch {
-            val response = sqlRepository.getArticleHistory()
+            val response = db.getArticleHistory()
             mAllHistory.postValue(response)
         }
-    } //var breakingNews : MutableLiveData<Response<NewsResponse>> = mAllBreakingNews
+    }
 
     fun loadFavorite() {
         viewModelScope.launch {
-            val response = sqlRepository.getArticleFavorite()
+            val response = db.getArticleFavorite()
             mAllFavorite.postValue(response)
         }
     }
 
     fun saveHistory(article: Article) {
         viewModelScope.launch {
-            sqlRepository.saveHistory(article)
+            db.saveHistory(article)
         }
     }
 
     fun saveFavorite(article: Article) {
         viewModelScope.launch {
-            sqlRepository.saveFavorite(article)
+            db.saveFavorite(article)
         }
     }
 
     fun removeHistory(article: Article) {
         viewModelScope.launch {
-            val result = sqlRepository.deleteHistory(article.id)
+            val result = db.deleteHistory(article.id)
             if (result) {
                 loadHistory()
             }
@@ -83,67 +89,35 @@ class MainViewModel(
 
     fun removeFavorite(article: Article) {
         viewModelScope.launch {
-            val result = sqlRepository.deleteFavorite(article.id)
+            val result = db.deleteFavorite(article.id)
             if (result) {
                 loadFavorite()
             }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun newsApi() {
-        viewModelScope.launch(Dispatchers.IO) {
-            checkBreakingNewsCall()
-//            val response = newsRepository.getBreakingNews()
-//            mAllBreakingNews.postValue(response)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private suspend fun checkBreakingNewsCall() {
-        breakingNews.postValue(Resource.Loading())
-        try {
-            if (hasInternetConnection()) {
-                val response = networkRepository.getNews()
-                breakingNews.postValue(handledBreakingNewsResponse(response))
-            } else {
-                breakingNews.postValue(Resource.Error("Нет соединения с интернетом"))
-            }
-        } catch (t: Throwable) {
-            when (t) {
-                is IOException -> breakingNews.postValue(Resource.Error("Сбой в работе сети"))
-                is SocketTimeoutException -> breakingNews.postValue(Resource.Error("Тайм аут!"))
-                is ConnectException -> breakingNews.postValue(Resource.Error("Ошибка подключения!"))
-                else -> breakingNews.postValue(Resource.Error("Ошибка преобразования"))
-            }
-        }
-    }
-
-    private fun handledBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                if (breakingNewsResponse == null) {
-                    breakingNewsResponse = resultResponse
+    fun newsByCategory(category: String, code: String) {
+        viewModelScope.launch {
+            Dispatchers.IO
+            breakingNews.postValue(Resource.Loading())
+            try {
+                asyncRequest(breakingNews) {
+                    network.getApi().getNewsByCategory(countryCode = code, category = category)
                 }
-//                else {
-//                }
-                return Resource.Success(breakingNewsResponse ?: resultResponse)
+            } catch (t: Throwable) {
             }
         }
-        return Resource.Error(response.message())
     }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun hasInternetConnection(): Boolean {
-        val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
+//    private fun handledBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
+//        if (response.isSuccessful) {
+//            response.body()?.let { resultResponse ->
+//                if (breakingNewsResponse == null) {
+//                    breakingNewsResponse = resultResponse
+//                }
+//
+//                return Resource.Success(breakingNewsResponse ?: resultResponse)
+//            }
+//        }
+//        return Resource.Error(response.message())
+//    }
 }

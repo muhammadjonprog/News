@@ -1,6 +1,8 @@
 package com.saidov.news2022.repository.networkrepository.repository
 
 import com.saidov.news2022.modules.main.ui.model.NewsResponse
+import com.saidov.news2022.repository.networkrepository.api.Api
+import retrofit2.Call
 import retrofit2.Response
 
 /**
@@ -9,7 +11,7 @@ import retrofit2.Response
  * http://muhammad.com/
  */
 interface NetworkRepository {
-   suspend fun getNews() : Response<NewsResponse>
 
-   suspend fun searchNews(searchQuery: String, pageNumber: Int)
+    fun getApi(): Api
+
 }

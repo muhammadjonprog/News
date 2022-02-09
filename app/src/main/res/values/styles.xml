@@ -21,14 +21,12 @@
     </style>
 
     <style name="TextViewMy">
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/font_size</item>
         <item name="android:layout_marginTop">@dimen/font_size</item>
         <item name="android:layout_marginRight">@dimen/font_size</item>
         <item name="android:fontFamily">@font/roboto</item>
-
     </style>
 
     <style name="BottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -37,6 +35,4 @@
         <item name="android:layout_margin">8dp</item>
     </style>
 
-
-
-</resources>
+ </resources>

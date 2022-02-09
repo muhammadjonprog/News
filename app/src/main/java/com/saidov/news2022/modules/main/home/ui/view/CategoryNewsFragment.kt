@@ -1,54 +1,36 @@
-package com.saidov.news2022.modules.main.home
+package com.saidov.news2022.modules.main.home.ui.view
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.ProgressBar
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
 import com.saidov.news2022.R
+import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
+import com.saidov.news2022.modules.main.ui.callback.OnToolbarListener
 import com.saidov.news2022.modules.main.ui.model.Article
-import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
 import com.saidov.news2022.repository.networkrepository.event.Resource
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener {
+class CategoryNewsFragment(private val category : String, private val codeCountry : String) : BaseFragment(R.layout.fragment_category_news),
+    View.OnLongClickListener, View.OnClickListener,
+    OnToolbarListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-    lateinit var tab : TabLayout
-    private  val viewModel by viewModel<MainViewModel>()
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view : View = inflater.inflate(R.layout.fragment_news, container, false)
-        initData(view)
+    private val viewModel by sharedViewModel<MainViewModel>()
 
-        initViewModel(view)
 
-        return view
-    }
     private fun initData(view: View) {
-        tab = view.findViewById(R.id.tabLayout)
-//        viewPager = view.findViewById(R.id.viewpager)
-//        viewPager.setCurrentItem(0)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNews)
         progressBar = view.findViewById(R.id.pbNews)
         val manager: LinearLayoutManager = GridLayoutManager(context, 1)
@@ -56,15 +38,8 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
         newsAdapter = NewsAdapter(this,this)
         recyclerView.adapter = newsAdapter
         progressBar.visibility = View.VISIBLE
-//        adapterPager = ViewPagerAdapter(requireFragmentManager())
-//        for (i in 0..5) {
-//            adapterPager.addFragment(Fragment(i), "ONE")
-//            viewPager.adapter = adapterPager
-//        }
-//        tab.setupWithViewPager(viewPager);
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     private fun initViewModel(view : View){
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response->
             when(response){
@@ -72,13 +47,11 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
                     hideProgressBar()
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
-                        Snackbar.make(view, "Данные успешно загружены", Snackbar.LENGTH_SHORT).show()
                     }
                 }
                 is Resource.Error->{
                     hideProgressBar()
                     response.message?.let { message->
-                        Log.e("NEWS", "Ошибка : $message" )
                         Snackbar.make(view, "Ошибка : $message", Snackbar.LENGTH_LONG).show()
                     }
                 }
@@ -87,7 +60,7 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
                 }
             }
         })
-        viewModel.newsApi()
+        viewModel.newsByCategory(category,codeCountry)
     }
 
     private fun hideProgressBar() {
@@ -101,6 +74,11 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
     }
 
     var isLoading= false
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initData(view)
+        initViewModel(view)
+    }
 
     private fun popupMenus(v : View,item: Article){
         val popupMenus = PopupMenu(v.context,v)
@@ -137,7 +115,7 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
 
     override fun onLongClick(v: View?): Boolean {
         v?.let {
-           val article = it.tag as Article
+            val article = it.tag as Article
             popupMenus(v,article)
         }
         return true
@@ -150,6 +128,14 @@ class NewsFragment : Fragment(), View.OnLongClickListener, View.OnClickListener 
             viewModel.saveHistory(article)
         }
     }
+
+
+    override fun setDisplayHomeEnabled(boolean: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setToolbarTitle(title: String) {
+        TODO("Not yet implemented")
+    }
+
 }
-
-

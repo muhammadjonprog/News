@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:srcCompat="@color/teal_200" />
+                app:srcCompat="@color/black" />
         </androidx.cardview.widget.CardView>
 
 
@@ -49,7 +49,7 @@
                 android:layout_gravity="start"
                 android:gravity="start"
                 android:text="Elon Musk-owned electric vehicle company Tesla has reportedly removed the dates about Cybertruck production from its website."
-                android:textColor="#5C7282"
+                android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

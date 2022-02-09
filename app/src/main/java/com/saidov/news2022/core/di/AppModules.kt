@@ -14,35 +14,21 @@ import org.koin.dsl.module
  * Created by MUHAMMADJON SAIDOV on 31,январь,2022
  * saidov.developer@gmail.com
  * http://muhammad.com/
- *
  */
-val vmModule = module {
 
-    viewModel<MainViewModel> {
-        MainViewModel(
-            context = get(),
-            networkRepository = get(),
-            sqlRepository = get()
-        )
+val vmModule = module {
+    viewModel {
+        MainViewModel()
     }
 }
 
-val repoModule = module {
+val repositoryModule = module {
     single<SqlRepository> {
         SqlRepositoryImpl(context = get())
     }
-
     single<NetworkRepository> {
-        NetworkRepositoryImpl(context = get())
+        NetworkRepositoryImpl(get())
     }
 }
 
-//val domainModule = module {
-//    factory<SaveUserNameUseCase> {
-//        SaveUserNameUseCase(userRepository = get())
-//    }
-//
-//    factory<GetUserNameUseCase> {
-//        GetUserNameUseCase(userRepository = get())
-//    }
-//}
+

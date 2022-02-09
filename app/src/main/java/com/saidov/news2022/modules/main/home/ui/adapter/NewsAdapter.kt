@@ -24,8 +24,6 @@ class NewsAdapter(
     val onLongClickListener: View.OnLongClickListener
 ) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
-    //private var newsResponse = ArrayList<Article>()
-
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemTitle: TextView = itemView.findViewById<TextView>(R.id.titleNews)
@@ -60,11 +58,6 @@ class NewsAdapter(
 
     val differ = AsyncListDiffer(this, differCallback)
 
-//    fun updatedData(newsResponse : ArrayList<Article>){
-//        this.newsResponse = newsResponse
-//        notifyDataSetChanged()
-//    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_row, parent, false)
@@ -72,7 +65,6 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         holder.bind()
     }
 

@@ -7,66 +7,53 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saidov.news2022.modules.main.favorite.FavoritesFragment
 import com.saidov.news2022.modules.main.history.HistoryFragment
-import com.saidov.news2022.modules.main.home.NewsFragment
-import com.saidov.news2022.modules.main.settings.SettingsFragment
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
-import com.saidov.news2022.modules.main.ui.vm.MainViewModelProviderFactory
+import com.saidov.news2022.modules.main.home.ui.view.NewsFragment
+import com.saidov.news2022.modules.main.settings.view.SettingsFragment
+
 import com.saidov.news2022.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.saidov.news2022.core.activity.BaseActivity
+import kotlin.properties.Delegates
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
     private lateinit var bottomNav : BottomNavigationView
-    private val newsFragment = NewsFragment()
-    private val historyFragment = HistoryFragment()
-    private val favoritesFragment = FavoritesFragment()
-    private val settingsFragment = SettingsFragment()
-//    lateinit var mainViewModel: MainViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        replaceFragment(newsFragment)
         title = "Новости"
         bottomNav = findViewById(R.id.bottomNav)
         bottomNav.setBackgroundDrawable(getDrawable(R.drawable.bg_round_bottom))
 
-
-
-//        val viewModelProviderFactory = MainViewModelProviderFactory(application)
-//        mainViewModel = ViewModelProvider(this,viewModelProviderFactory)
-//            .get(MainViewModel::class.java)
-
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.newsNav ->{
-                    replaceFragment(newsFragment)
+                    replaceFragment(NewsFragment())
                    title = "Новости"
                 }
                 R.id.historyNav -> {
-                    replaceFragment(historyFragment)
+                    replaceFragment(HistoryFragment())
                     title = "История"
                 }
                 R.id.favoriteNav ->{
-                    replaceFragment(favoritesFragment)
+                    replaceFragment(FavoritesFragment())
                     title = "Избранные"
                 }
                 R.id.settingsNav ->{
-                    replaceFragment(settingsFragment)
+               replaceFragment(SettingsFragment())
                     title = "Настройки"
                 }
             }
             true
         }
-    }
+        bottomNav.selectedItemId = R.id.newsNav
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    }
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return true
