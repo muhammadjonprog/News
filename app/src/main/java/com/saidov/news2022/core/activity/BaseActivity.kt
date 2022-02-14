@@ -10,24 +10,5 @@ import androidx.appcompat.app.AppCompatActivity
  */
 open class BaseActivity : AppCompatActivity() {
 
-//    private var doubleClick: Boolean = false
-//
-//    override fun onBackPressed() {
-//        if (supportFragmentManager.backStackEntryCount > 0)
-//            super.onBackPressed()
-//        if (doubleClick) {
-//            super.onBackPressed()
-//        }
-//        doubleClick = true
-//    }
-
-   protected open fun showLongToast(text: String) {
-        Toast.makeText(this,text, Toast.LENGTH_SHORT).show()
-    }
-
-    protected open fun showShortToast(text: String) {
-        Toast.makeText(this,text, Toast.LENGTH_SHORT).show()
-    }
-
 
 }
