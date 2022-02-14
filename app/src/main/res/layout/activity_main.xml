@@ -6,81 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".modules.main.ui.view.MainActivity">
 
-<!--    <include-->
-<!--        android:id="@+id/tool_bar"-->
-<!--        layout="@layout/toolbar"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="@color/white"-->
-<!--        android:elevation="4dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/toolbar_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:fontFamily="@font/roboto_medium"-->
-<!--            android:gravity="start|fill_vertical"-->
-<!--            android:text="Some Fancy Title"-->
-<!--            android:textColor="#000000"-->
-<!--            android:textSize="18sp"-->
-<!--            tools:layout_editor_absoluteX="16dp" />-->
-<!--       <LinearLayout-->
-<!--           android:layout_width="wrap_content"-->
-<!--           android:layout_height="wrap_content"-->
-<!--           android:orientation="horizontal"-->
-<!--           android:layout_marginStart="200dp">-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNav"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:persistentDrawingCache="animation"
+            app:itemBackground="?android:attr/windowBackground"
+            app:itemIconTint="@color/navigation_color"
+            app:itemTextColor="@color/navigation_color"
+            app:labelVisibilityMode="selected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView"
+            app:menu="@menu/menu_navigation" />
 
-<!--           <ImageView-->
-<!--               android:layout_width="wrap_content"-->
-<!--               android:layout_height="wrap_content"-->
-<!--               android:src="@drawable/ic_icon_search"/>-->
-<!--           <Space-->
-<!--               android:layout_width="16dp"-->
-<!--               android:layout_height="0dp"/>-->
-
-<!--           <ImageView-->
-<!--               android:layout_width="wrap_content"-->
-<!--               android:layout_height="wrap_content"-->
-<!--               android:src="@drawable/ic_icon_notification"/>-->
-<!--       </LinearLayout>-->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.saidov.news2022.modules.main.home.ui.view.HomeFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--    </androidx.appcompat.widget.Toolbar>-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_round"
-        android:elevation="12dp"
-        app:itemIconTint="@color/navigation_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/menu_navigation" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="com.saidov.news2022.modules.main.home.ui.view.NewsFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

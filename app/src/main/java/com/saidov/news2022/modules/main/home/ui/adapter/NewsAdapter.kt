@@ -27,7 +27,8 @@ class NewsAdapter(
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemTitle: TextView = itemView.findViewById<TextView>(R.id.titleNews)
-        private val itemDescription: TextView = itemView.findViewById<TextView>(R.id.descriptionNews)
+        private val itemDescription: TextView =
+            itemView.findViewById<TextView>(R.id.descriptionNews)
         private val itemImage: ImageView = itemView.findViewById<ImageView>(R.id.imageNews)
 
         fun bind() {

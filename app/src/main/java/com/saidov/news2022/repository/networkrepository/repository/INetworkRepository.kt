@@ -10,7 +10,7 @@ import retrofit2.Response
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-interface NetworkRepository {
+interface INetworkRepository {
 
     fun getApi(): Api
 

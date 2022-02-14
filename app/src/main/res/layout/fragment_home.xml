@@ -5,28 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="8dp"
-    tools:context=".modules.main.home.ui.view.NewsFragment">
+    tools:context=".modules.main.home.ui.view.HomeFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         style="MyCustomTextAppearance"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        android:contentDescription="@string/politics"
         android:elevation="10dp"
-        android:importantForAccessibility="no"
-        android:layerType="none"
-        android:textAlignment="textEnd"
         android:textDirection="ltr"
+        app:layout_constraintBottom_toTopOf="@+id/viewpager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabMode="scrollable"
-        app:tabGravity="center"
         app:tabIndicatorColor="#000000"
         app:tabIndicatorHeight="3dp"
+        app:tabMode="scrollable"
         app:tabTextAppearance="@style/MyCustomTextAppearance"
-        app:tabTextColor="#000000"/>
+        app:tabTextColor="#000000" />
 
 
     <androidx.viewpager2.widget.ViewPager2

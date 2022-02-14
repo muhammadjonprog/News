@@ -11,15 +11,15 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="12dp"
         android:background="@drawable/bg_round"
         android:fontFamily="@font/roboto"
+        android:gravity="center|start"
         android:text="@string/textCategory"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerSettingsCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,13 +28,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSettingsCategory"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_round"
+        android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        android:background="@drawable/bg_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.141"
         tools:listitem="@layout/checkbox_item" />
 
 

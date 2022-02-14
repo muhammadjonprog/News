@@ -1,5 +1,6 @@
 package com.saidov.news2022.core.activity
 
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -8,14 +9,25 @@ import androidx.appcompat.app.AppCompatActivity
  * http://muhammad.com/
  */
 open class BaseActivity : AppCompatActivity() {
-     var doubleClick : Boolean = true
 
-    override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0)
-        super.onBackPressed()
-        if(doubleClick){
-            super.onBackPressed()
-        }
+//    private var doubleClick: Boolean = false
+//
+//    override fun onBackPressed() {
+//        if (supportFragmentManager.backStackEntryCount > 0)
+//            super.onBackPressed()
+//        if (doubleClick) {
+//            super.onBackPressed()
+//        }
+//        doubleClick = true
+//    }
+
+   protected open fun showLongToast(text: String) {
+        Toast.makeText(this,text, Toast.LENGTH_SHORT).show()
     }
+
+    protected open fun showShortToast(text: String) {
+        Toast.makeText(this,text, Toast.LENGTH_SHORT).show()
+    }
+
 
 }

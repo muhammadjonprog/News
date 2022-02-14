@@ -15,17 +15,6 @@ import retrofit2.http.Query
 interface Api {
 
     @GET("v2/top-headlines")
-    fun getBreakingNews(
-        @Query("country")
-        countryCode: String = "ru", //default to us
-        @Query("category")
-        category: String = "sports",
-        @Query("page")  //to paginate the request
-        pageNumber: Int= 1
-    ) : Call<NewsResponse>
-
-
-    @GET("v2/top-headlines")
     fun getNewsByCategory(
         @Query("country")
         countryCode: String?,
@@ -35,12 +24,9 @@ interface Api {
 
 
     @GET("v2/everything")
-
      fun search(
-
         @Query("q")
         searchQuery: String
-
-    ): Call<NewsResponse> //return response
+    ): Call<NewsResponse>
 
 }

@@ -2,12 +2,12 @@ package com.saidov.news2022.core.di
 
 
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
-import com.saidov.news2022.repository.dbrepository.SqlRepository
+import com.saidov.news2022.repository.dbrepository.ISqlRepository
 import com.saidov.news2022.repository.dbrepository.SqlRepositoryImpl
-import com.saidov.news2022.repository.networkrepository.repository.NetworkRepository
+import com.saidov.news2022.repository.networkrepository.repository.INetworkRepository
 import com.saidov.news2022.repository.networkrepository.repository.NetworkRepositoryImpl
-
 import org.koin.androidx.viewmodel.dsl.viewModel
+
 import org.koin.dsl.module
 
 /**
@@ -23,10 +23,10 @@ val vmModule = module {
 }
 
 val repositoryModule = module {
-    single<SqlRepository> {
+    single<ISqlRepository> {
         SqlRepositoryImpl(context = get())
     }
-    single<NetworkRepository> {
+    single<INetworkRepository> {
         NetworkRepositoryImpl(get())
     }
 }

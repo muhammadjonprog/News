@@ -5,9 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.saidov.news2022.repository.networkrepository.exeption.InternetConnException
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 /**
  * Created by MUHAMMADJON SAIDOV on 06,февраль,2022
@@ -37,6 +37,6 @@ abstract class BaseInterceptor(val context: Context) : Interceptor {
         if (hasInternetConnection()) {
             return chain.proceed(chain.request())
         }
-        throw  InternetConnException("Internet no connection")
+        throw  IOException("Internet no connection")
     }
 }

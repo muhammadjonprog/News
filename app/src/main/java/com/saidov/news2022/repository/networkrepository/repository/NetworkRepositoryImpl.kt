@@ -1,7 +1,6 @@
 package com.saidov.news2022.repository.networkrepository.repository
 
 import android.content.Context
-import com.saidov.news2022.modules.main.ui.model.NewsResponse
 import com.saidov.news2022.other.Constants.Companion.BASE_URL
 import com.saidov.news2022.repository.networkrepository.api.Api
 import com.saidov.news2022.repository.networkrepository.interceptor.ApiKeyInterceptor
@@ -17,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * http://muhammad.com/
  */
 
-class NetworkRepositoryImpl(val context: Context) : NetworkRepository {
+class NetworkRepositoryImpl(val context: Context) : INetworkRepository {
 
         private fun getClient(): OkHttpClient {
             val logging = HttpLoggingInterceptor()

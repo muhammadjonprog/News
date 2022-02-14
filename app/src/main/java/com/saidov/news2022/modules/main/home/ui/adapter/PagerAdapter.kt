@@ -10,17 +10,18 @@ import com.saidov.news2022.modules.main.home.ui.model.TabLayoutModel
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle)  {
+class PagerAdapter(fragment: Fragment) :
+    FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle) {
 
-    private var  items : ArrayList<TabLayoutModel> = ArrayList()
+    private var items: ArrayList<TabLayoutModel> = ArrayList()
 
-     fun addFragment(tabLayoutModel: TabLayoutModel){
+    fun addFragment(tabLayoutModel: TabLayoutModel) {
         items.add(tabLayoutModel)
     }
 
 
     override fun getItemCount(): Int {
-       return items.size
+        return items.size
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -28,11 +29,12 @@ class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment.childFrag
     }
 
 
-    fun getFragment(position: Int) : BaseFragment{
+    fun getFragment(position: Int): BaseFragment {
         return items[position].fragment
     }
 
-    fun getTableLayoutTitle(position: Int) : String{
+    fun getTableLayoutTitle(position: Int): String {
         return items[position].title
     }
+
 }

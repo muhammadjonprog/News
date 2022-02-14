@@ -1,14 +1,14 @@
 package com.saidov.news2022.modules.main.ui.vm
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.saidov.news2022.core.viewmodel.BaseViewModel
 import com.saidov.news2022.modules.main.settings.model.SettingsCategoryModel
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.ui.model.NewsResponse
+import com.saidov.news2022.other.Constants.Companion.SEARCH_DELAY
 import com.saidov.news2022.repository.networkrepository.event.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import kotlinx.coroutines.*
 
 /**
  * Created by MUHAMMADJON SAIDOV on 22,январь,2022
@@ -17,15 +17,12 @@ import retrofit2.Response
  */
 
 class MainViewModel() : BaseViewModel() {
-
+    private val tag = "A"
     private val mAllHistory = MutableLiveData<ArrayList<Article>>()
     var allHistory: LiveData<ArrayList<Article>> = mAllHistory
 
     private val mAllFavorite = MutableLiveData<ArrayList<Article>>()
     var allFavorite: LiveData<ArrayList<Article>> = mAllFavorite
-
-    private val mAllBreakingNews = MutableLiveData<Resource<NewsResponse>>()
-    val breakingNews: MutableLiveData<Resource<NewsResponse>> = mAllBreakingNews
 
     private val mSettingsCategory = MutableLiveData<ArrayList<SettingsCategoryModel>>().apply {
         val list: ArrayList<SettingsCategoryModel> = ArrayList()
@@ -37,19 +34,38 @@ class MainViewModel() : BaseViewModel() {
         list.add(science)
         val politics = SettingsCategoryModel("politics", "ru", "ru", "Политика", true)
         list.add(politics)
+        val technology = SettingsCategoryModel("technology", "ru", "ru", "Технологии", true)
+        list.add(technology)
+        val entertainment = SettingsCategoryModel("entertainment", "ru", "ru", "Развлечение", true)
+        list.add(entertainment)
         value = list
     }
     var settingsCategory: MutableLiveData<ArrayList<SettingsCategoryModel>> = mSettingsCategory
 
-    private val mNewsMutableHash = HashMap<String, MutableLiveData<Response<Article>>>()
-    val newsLiveDataMap: Map<String, LiveData<Response<Article>>> = mNewsMutableHash
+    private val mNewsMutableHash = HashMap<String, MutableLiveData<Resource<NewsResponse>>>()
+    val newsLiveDataMap: Map<String, LiveData<Resource<NewsResponse>>> = mNewsMutableHash
 
-    fun addToHash(text: String) {
-        mNewsMutableHash.put(text, MutableLiveData())
+    fun addToHash(key: String) {
+        if (mNewsMutableHash[key] == null) {
+            mNewsMutableHash[key] = MutableLiveData<Resource<NewsResponse>>()
+        }
     }
 
-    fun removeFromHash(text: String) {
-        mNewsMutableHash.remove(text)
+    fun removeFromHash(key: String) {
+        if (mNewsMutableHash[key] != null) {
+            mNewsMutableHash.remove(key)
+        }
+    }
+
+    fun newsByCategory(category: String, code: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val livedata = mNewsMutableHash[category]
+            livedata?.let {
+                asyncRequest(livedata) {
+                    network.getApi().getNewsByCategory(countryCode = code, category = category)
+                }
+            }
+        }
     }
 
     fun loadHistory() {
@@ -96,28 +112,41 @@ class MainViewModel() : BaseViewModel() {
         }
     }
 
-    fun newsByCategory(category: String, code: String) {
+    fun searchByHistory(query: String) {
         viewModelScope.launch {
-            Dispatchers.IO
-            breakingNews.postValue(Resource.Loading())
-            try {
-                asyncRequest(breakingNews) {
-                    network.getApi().getNewsByCategory(countryCode = code, category = category)
-                }
-            } catch (t: Throwable) {
-            }
+            val response = db.searchByHistory(query)
+            mAllHistory.postValue(response)
         }
     }
-//    private fun handledBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-//        if (response.isSuccessful) {
-//            response.body()?.let { resultResponse ->
-//                if (breakingNewsResponse == null) {
-//                    breakingNewsResponse = resultResponse
-//                }
-//
-//                return Resource.Success(breakingNewsResponse ?: resultResponse)
-//            }
-//        }
-//        return Resource.Error(response.message())
-//    }
+
+    fun searchByFavorite(query: String) {
+        viewModelScope.launch {
+            val response = db.searchByFavorite(query)
+            mAllFavorite.postValue(response)
+        }
+    }
+
+    fun searchByTitle(queryInTitle: String, key: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(SEARCH_DELAY)
+            val livedata = mNewsMutableHash[key]
+            Log.d("livedata", livedata.toString())
+            livedata?.let {
+                asyncRequest(livedata) {
+                    network.getApi().search(searchQuery = queryInTitle)
+                }
+            }
+        }
+
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.e(tag, "VM cleared")
+    }
+
+    init {
+        Log.e(tag, "VM created")
+    }
 }

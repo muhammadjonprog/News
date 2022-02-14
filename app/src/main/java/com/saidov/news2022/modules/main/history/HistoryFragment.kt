@@ -1,43 +1,43 @@
 package com.saidov.news2022.modules.main.history
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-
-
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
 import com.saidov.news2022.modules.main.ui.model.Article
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
-import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.MainViewModel
 import com.saidov.news2022.R
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.saidov.news2022.core.callback.OnToolBarChangedListener
+import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
+import com.saidov.news2022.modules.main.settings.view.SettingsFragment
 
-class HistoryFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
+class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewModel::class.java,R.layout.fragment_history),
+    View.OnClickListener, View.OnLongClickListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
-    private  val viewModel by viewModel<MainViewModel>()
+    var listener: OnToolBarChangedListener? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_history, container, false)
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initData(view)
         initViewModel()
-        return view
+        listener?.setToolbarName("История")
+
     }
+
+    override fun onSearch(query: String) {
+        viewModel.searchByHistory(query)
+    }
+
 
     private fun initData(view: View) {
         recyclerView = view.findViewById<RecyclerView>(R.id.recHistory)
@@ -75,10 +75,10 @@ class HistoryFragment : Fragment(), View.OnClickListener, View.OnLongClickListen
 
     private fun popupMenus(v: View, item: Article) {
         val popupMenus = PopupMenu(v.context, v)
-        popupMenus.inflate(R.menu.menu_popup_delete)
+        popupMenus.inflate(R.menu.menu_popup_delete_history)
         popupMenus.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.deleteArticle -> {
+                R.id.deleteArticleHis -> {
                     viewModel.removeHistory(item)
                     Snackbar.make(v, "Новости успешно удалено ", Snackbar.LENGTH_LONG).apply {
                         setAction("Отмена") {
@@ -113,6 +113,16 @@ class HistoryFragment : Fragment(), View.OnClickListener, View.OnLongClickListen
         fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, detailFragment)
             ?.addToBackStack(this::class.java.simpleName)?.commit()
     }
+
+    companion object {
+        fun newInstance(listener: OnToolBarChangedListener?): HistoryFragment {
+            val fragment: HistoryFragment = HistoryFragment()
+            fragment.listener = listener
+            return fragment
+        }
+    }
+
+
 }
 
 

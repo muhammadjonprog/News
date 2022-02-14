@@ -12,7 +12,7 @@ import com.saidov.news2022.modules.main.ui.model.Source
  * http://muhammad.com/
  *
  */
-class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), SqlRepository {
+class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRepository {
 
     override fun saveHistory(article: Article) {
         val sql = "INSERT or replace INTO History (author, title, description, url," +
@@ -114,5 +114,81 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), SqlRepo
     override fun deleteFavorite(id: Long): Boolean {
         val deleteQuery = "DELETE FROM Favorite WHERE id = $id"
         return ExecuteWithResult(deleteQuery)
+    }
+
+    @SuppressLint("Range")
+    override fun searchByHistory(query: String): ArrayList<Article> {
+        val searchList = ArrayList<Article>()
+        val source: Source? = null
+        val sql = "SELECT * FROM History WHERE title  LIKE  '%$query%'"
+        val mCursor: Cursor? = Query(sql)
+        if (mCursor != null) {
+            if (mCursor.moveToFirst()) {
+                do {
+                    val id = mCursor.getLong(mCursor.getColumnIndex("id"))
+                    val author = mCursor.getString(mCursor.getColumnIndex("author"))
+                    val title = mCursor.getString(mCursor.getColumnIndex("title"))
+                    val description = mCursor.getString(mCursor.getColumnIndex("description"))
+                    val url = mCursor.getString(mCursor.getColumnIndex("url"))
+                    val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
+                    val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
+                    val content = mCursor.getString(mCursor.getColumnIndex("content"))
+                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    searchList.add(
+                        Article(
+                            id,
+                            source,
+                            author,
+                            title,
+                            description,
+                            url,
+                            urlToImage,
+                            publishedAt,
+                            content
+                        )
+                    )
+                } while (mCursor.moveToNext())
+            }
+            mCursor.close()
+        }
+        return searchList
+    }
+
+    @SuppressLint("Range")
+    override fun searchByFavorite(query: String): ArrayList<Article> {
+        val searchList = ArrayList<Article>()
+        val source: Source? = null
+        val sql = "SELECT * FROM Favorite WHERE title  LIKE '%$query%'"
+        val mCursor: Cursor? = Query(sql)
+        if (mCursor != null) {
+            if (mCursor.moveToFirst()) {
+                do {
+                    val id = mCursor.getLong(mCursor.getColumnIndex("id"))
+                    val author = mCursor.getString(mCursor.getColumnIndex("author"))
+                    val title = mCursor.getString(mCursor.getColumnIndex("title"))
+                    val description = mCursor.getString(mCursor.getColumnIndex("description"))
+                    val url = mCursor.getString(mCursor.getColumnIndex("url"))
+                    val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
+                    val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
+                    val content = mCursor.getString(mCursor.getColumnIndex("content"))
+                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    searchList.add(
+                        Article(
+                            id,
+                            source,
+                            author,
+                            title,
+                            description,
+                            url,
+                            urlToImage,
+                            publishedAt,
+                            content
+                        )
+                    )
+                } while (mCursor.moveToNext())
+            }
+            mCursor.close()
+        }
+        return searchList
     }
 }

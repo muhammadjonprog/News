@@ -1,6 +1,8 @@
 package com.saidov.news2022.core.fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +19,9 @@ abstract class BaseFragmentWithViewModel  <T : BaseViewModel> (clazz:Class<T>,@L
         ViewModelProvider(requireActivity())[clazz]
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//    }
 
-    }
 }

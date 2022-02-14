@@ -10,14 +10,10 @@ import java.util.ArrayList
  * http://muhammad.com/
  */
 data class SettingsCategoryModel(
-    @SerializedName("category")
-    val category: String,
-    @SerializedName("country")
-    val country: String,
-    @SerializedName("language")
-    val language: String,
-    @SerializedName("name")
-    val name: String,
+    @SerializedName("category") val category: String,
+    @SerializedName("country") val country: String,
+    @SerializedName("language") val language: String,
+    @SerializedName("name") val name: String,
 
     var isChecked : Boolean
 )

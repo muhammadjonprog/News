@@ -7,7 +7,7 @@ import com.saidov.news2022.modules.main.ui.model.Article
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-interface SqlRepository  {
+interface ISqlRepository  {
 
     fun saveHistory(article : Article)
 
@@ -20,4 +20,8 @@ interface SqlRepository  {
     fun deleteHistory(id: Long) : Boolean
 
     fun deleteFavorite(id : Long) : Boolean
+
+    fun searchByHistory(query : String) : ArrayList<Article>
+
+    fun searchByFavorite(query : String) : ArrayList<Article>
 }

@@ -8,6 +8,6 @@ import com.saidov.news2022.core.fragment.BaseFragment
  * http://muhammad.com/
  */
 
- class TabLayoutModel(val fragment: BaseFragment,val title : String){
+class TabLayoutModel(val fragment: BaseFragment,val title : String){
 
 }
