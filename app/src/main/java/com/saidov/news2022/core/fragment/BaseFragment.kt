@@ -11,7 +11,7 @@ import com.google.android.material.appbar.MaterialToolbar
  * http://muhammad.com/
  */
 abstract class BaseFragment(@LayoutRes n: Int) : Fragment(n){
-
+    //ToDO: onSearch на хама фрагментхова лозим мещавад, аз хамин сабаб дар дарони BaseFragment гузаоштан нодуруст.
     open fun onSearch(query: String) {}
 
 

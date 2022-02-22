@@ -30,7 +30,6 @@ class HomeFragment :
         listener?.setToolbarName("Главная")
     }
 
-
     override fun onSearch(query: String) {
         if (isResumed) {
             pagerAdapter.getFragment(tabLayout.selectedTabPosition).onSearch(query = query)

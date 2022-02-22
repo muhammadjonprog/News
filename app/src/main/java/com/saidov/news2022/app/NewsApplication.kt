@@ -12,6 +12,7 @@ import org.koin.core.context.startKoin
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
+//TODO: NewsApplication номаша бехтар мешавад просто App гуем. Ва дар уровени папкахои core, modules... баробар гузорем. Набояд папкаи app-ба истад
 class NewsApplication : Application() {
 
     override fun onCreate() {

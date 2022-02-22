@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
+//TODO:ArticleModel шавад бехтар номи класс
 data class Article(
     var id: Long,
     @SerializedName("source") var source: Source?,

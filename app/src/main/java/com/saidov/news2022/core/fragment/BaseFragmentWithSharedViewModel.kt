@@ -10,7 +10,7 @@ import com.saidov.news2022.modules.main.ui.view.MainActivity
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-
+//TODO: Махсус барои sharedViewModel BaseFragmentWithSharedViewModel сохтан нодуруст. sharedViewModel дарони фрагментба эълон шудан гириад хам мешавад
 abstract class BaseFragmentWithSharedViewModel<T:BaseViewModel>(clazz:Class<T>,@LayoutRes n: Int)
     : BaseFragment(n) {
     protected val viewModel by lazy{
