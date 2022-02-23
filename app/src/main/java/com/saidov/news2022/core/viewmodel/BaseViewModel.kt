@@ -37,7 +37,6 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
                         }
                     }
                 }
-
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     when (t) {
                         is IOException -> liveData.value = Resource.Error("Нет подключение к интернету!")

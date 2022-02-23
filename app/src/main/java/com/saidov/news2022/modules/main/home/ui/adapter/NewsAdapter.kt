@@ -21,8 +21,8 @@ import com.saidov.news2022.R
  */
 class NewsAdapter(
     val onClickListener: View.OnClickListener,
-    val onLongClickListener: View.OnLongClickListener
-) : RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
+    val onLongClickListener: View.OnLongClickListener) :
+    RecyclerView.Adapter<NewsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

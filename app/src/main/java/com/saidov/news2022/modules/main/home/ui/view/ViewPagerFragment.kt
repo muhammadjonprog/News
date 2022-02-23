@@ -20,7 +20,8 @@ import com.saidov.news2022.repository.networkrepository.event.Resource
 class ViewPagerFragment() :
     BaseFragmentWithSharedViewModel<MainViewModel>(
         MainViewModel::class.java,
-        R.layout.fragment_viewpager_news), View.OnLongClickListener, View.OnClickListener {
+        R.layout.fragment_viewpager_news
+    ), View.OnLongClickListener, View.OnClickListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
@@ -77,7 +78,6 @@ class ViewPagerFragment() :
 
     override fun onSearch(query: String) {
         viewModel.searchByTitle(queryInTitle = query, key = category)
-
     }
 
     private fun popupMenus(v: View, item: Article) {
@@ -110,8 +110,8 @@ class ViewPagerFragment() :
         val detailFragment = DetailFragment()
         detailFragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()
-            ?.replace(R.id.fragmentContainerView, detailFragment)
-            ?.addToBackStack(this::class.java.simpleName)?.commit()
+            .replace(R.id.fragmentContainerView, detailFragment)
+            .addToBackStack(this::class.java.simpleName).commit()
     }
 
     override fun onLongClick(v: View?): Boolean {

@@ -21,6 +21,7 @@ class MainViewModel() : BaseViewModel() {
     private val mAllHistory = MutableLiveData<ArrayList<Article>>()
     var allHistory: LiveData<ArrayList<Article>> = mAllHistory
 
+
     private val mAllFavorite = MutableLiveData<ArrayList<Article>>()
     var allFavorite: LiveData<ArrayList<Article>> = mAllFavorite
 
