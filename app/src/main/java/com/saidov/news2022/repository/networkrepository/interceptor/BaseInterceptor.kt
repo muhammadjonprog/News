@@ -16,7 +16,7 @@ import java.io.IOException
  */
 
 abstract class BaseInterceptor(val context: Context) : Interceptor {
-
+    //ToDO: Interceptor ин хар як запросба кор мекунад. Тафтиши интернет пеш аз фиристодани хар як запрос ин нодуруст. Бехтараш мо дар хамон onFailure catch карда гирим
     @RequiresApi(Build.VERSION_CODES.M)
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = context.getSystemService(

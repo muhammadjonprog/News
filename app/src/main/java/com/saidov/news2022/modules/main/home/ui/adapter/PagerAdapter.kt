@@ -19,7 +19,6 @@ class PagerAdapter(fragment: Fragment) :
         items.add(tabLayoutModel)
     }
 
-
     override fun getItemCount(): Int {
         return items.size
     }

@@ -36,7 +36,7 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
 
         bottomNav = findViewById(R.id.bottomNav)
         bottomNav.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
+        //ToDo: Бехтар мешавад дар дарони onCreate не, дар дарони худи MainActivity OnNavigationItemSelectedListener-ро эълон кунид
         bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.newsNav -> {
@@ -111,7 +111,6 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
 
     override fun setToolbarName(title: String) {
         supportActionBar?.title = title
-
     }
 
     override fun setToolBarBackVisibility(status: Boolean) {

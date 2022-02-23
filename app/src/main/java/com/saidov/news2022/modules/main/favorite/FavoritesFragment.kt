@@ -30,6 +30,8 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
         super.onViewCreated(view, savedInstanceState)
         initData(view)
         initViewModel()
+
+        //ToDO:Ивазкунии title бехтаращ дар даркорни onAttach шаавад бехтар, так как onAttach як маротиба чег зада мешавад
         listener?.setToolbarName("Избранные")
     }
 
@@ -64,7 +66,7 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
         recyclerView.adapter = newsAdapter
 
     }
-
+    //ToDo: номи бехтар initObservers шавад бехтар - initViewModel - ин маънои дигар медихад
     private fun initViewModel() {
         viewModel.allFavorite.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())

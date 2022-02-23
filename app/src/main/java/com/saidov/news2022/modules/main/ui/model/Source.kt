@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
  * http://muhammad.com/
  *
  */
+//TODO:SourceModel шавад бехтар номи класс
 data class Source(
     @SerializedName("id")
     val id: Any,

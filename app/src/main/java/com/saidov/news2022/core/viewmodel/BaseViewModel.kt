@@ -25,6 +25,7 @@ abstract class BaseViewModel : ViewModel(), KoinComponent {
     protected val network: INetworkRepository by inject()
     protected val db: ISqlRepository by inject()
 
+    //ToDo: Ин хам нагз, лекин бо корутины боз осонтар кардаги асинх запросхоя. Бафикрам рефторифт аз версияи 2.6 корутины поддержка мекунад
     protected fun <T> asyncRequest(
         liveData: MutableLiveData<Resource<T>>,
         request: () -> Call<T>) {
