@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.saidov.news2022.core.viewmodel.BaseViewModel
 import com.saidov.news2022.modules.main.settings.model.SettingsCategoryModel
-import com.saidov.news2022.modules.main.ui.model.Article
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
 import com.saidov.news2022.modules.main.ui.model.NewsResponse
 import com.saidov.news2022.other.Constants.Companion.SEARCH_DELAY
 import com.saidov.news2022.repository.networkrepository.event.Resource
@@ -18,12 +18,12 @@ import kotlinx.coroutines.*
 
 class MainViewModel() : BaseViewModel() {
     private val tag = "A"
-    private val mAllHistory = MutableLiveData<ArrayList<Article>>()
-    var allHistory: LiveData<ArrayList<Article>> = mAllHistory
+    private val mAllHistory = MutableLiveData<ArrayList<ArticleModel>>()
+    var allHistory: LiveData<ArrayList<ArticleModel>> = mAllHistory
 
 
-    private val mAllFavorite = MutableLiveData<ArrayList<Article>>()
-    var allFavorite: LiveData<ArrayList<Article>> = mAllFavorite
+    private val mAllFavorite = MutableLiveData<ArrayList<ArticleModel>>()
+    var allFavorite: LiveData<ArrayList<ArticleModel>> = mAllFavorite
 
     private val mSettingsCategory = MutableLiveData<ArrayList<SettingsCategoryModel>>().apply {
         val list: ArrayList<SettingsCategoryModel> = ArrayList()
@@ -83,30 +83,30 @@ class MainViewModel() : BaseViewModel() {
         }
     }
 
-    fun saveHistory(article: Article) {
+    fun saveHistory(articleModel: ArticleModel) {
         viewModelScope.launch {
-            db.saveHistory(article)
+            db.saveHistory(articleModel)
         }
     }
 
-    fun saveFavorite(article: Article) {
+    fun saveFavorite(articleModel: ArticleModel) {
         viewModelScope.launch {
-            db.saveFavorite(article)
+            db.saveFavorite(articleModel)
         }
     }
 
-    fun removeHistory(article: Article) {
+    fun removeHistory(articleModel: ArticleModel) {
         viewModelScope.launch {
-            val result = db.deleteHistory(article.id)
+            val result = db.deleteHistory(articleModel.id)
             if (result) {
                 loadHistory()
             }
         }
     }
 
-    fun removeFavorite(article: Article) {
+    fun removeFavorite(articleModel: ArticleModel) {
         viewModelScope.launch {
-            val result = db.deleteFavorite(article.id)
+            val result = db.deleteFavorite(articleModel.id)
             if (result) {
                 loadFavorite()
             }
@@ -138,9 +138,7 @@ class MainViewModel() : BaseViewModel() {
                 }
             }
         }
-
     }
-
 
     override fun onCleared() {
         super.onCleared()
