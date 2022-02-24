@@ -32,6 +32,7 @@ class PagerAdapter(fragment: Fragment) :
         return items[position].fragment
     }
 
+
     fun getTableLayoutTitle(position: Int): String {
         return items[position].title
     }

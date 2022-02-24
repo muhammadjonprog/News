@@ -1,9 +1,6 @@
 package com.saidov.news2022.repository.networkrepository.repository
 
-import com.saidov.news2022.modules.main.ui.model.NewsResponse
-import com.saidov.news2022.repository.networkrepository.api.Api
-import retrofit2.Call
-import retrofit2.Response
+import com.saidov.news2022.repository.networkrepository.api.NewsService
 
 /**
  * Created by MUHAMMADJON SAIDOV on 31,январь,2022
@@ -12,6 +9,6 @@ import retrofit2.Response
  */
 interface INetworkRepository {
 
-    fun getApi(): Api
+    fun getApi(): NewsService
 
 }

@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-//TODO:BaseActivity, BaseFragment,BaseViewModel... ин классхо бояд abstract бощад бехтар
-open class BaseActivity : AppCompatActivity() {
 
-
+abstract class BaseActivity : AppCompatActivity() {
 
 }

@@ -1,6 +1,6 @@
 package com.saidov.news2022.repository.dbrepository
 
-import com.saidov.news2022.modules.main.ui.model.Article
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
 
 /**
  * Created by MUHAMMADJON SAIDOV on 30,январь,2022
@@ -9,19 +9,19 @@ import com.saidov.news2022.modules.main.ui.model.Article
  */
 interface ISqlRepository  {
 
-    fun saveHistory(article : Article)
+    fun saveHistory(articleModel : ArticleModel)
 
-    fun saveFavorite(article : Article)
+    fun saveFavorite(articleModel : ArticleModel)
 
-    fun getArticleHistory() : ArrayList<Article>
+    fun getArticleHistory() : ArrayList<ArticleModel>
 
-    fun getArticleFavorite() : ArrayList<Article>
+    fun getArticleFavorite() : ArrayList<ArticleModel>
 
     fun deleteHistory(id: Long) : Boolean
 
     fun deleteFavorite(id : Long) : Boolean
 
-    fun searchByHistory(query : String) : ArrayList<Article>
+    fun searchByHistory(query : String) : ArrayList<ArticleModel>
 
-    fun searchByFavorite(query : String) : ArrayList<Article>
+    fun searchByFavorite(query : String) : ArrayList<ArticleModel>
 }

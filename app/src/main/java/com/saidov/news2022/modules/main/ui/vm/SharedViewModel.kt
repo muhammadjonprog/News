@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
  * http://muhammad.com/
  */
 
-class MainViewModel() : BaseViewModel() {
+class SharedViewModel() : BaseViewModel() {
     private val tag = "A"
     private val mAllHistory = MutableLiveData<ArrayList<ArticleModel>>()
     var allHistory: LiveData<ArrayList<ArticleModel>> = mAllHistory
@@ -62,9 +62,10 @@ class MainViewModel() : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val livedata = mNewsMutableHash[category]
             livedata?.let {
-                asyncRequest(livedata) {
-                    network.getApi().getNewsByCategory(countryCode = code, category = category)
-                }
+                request()
+//                asyncRequest(livedata) {
+//                    network.getApi().getNewsByCategory(countryCode = code, category = category)
+//                }
             }
         }
     }

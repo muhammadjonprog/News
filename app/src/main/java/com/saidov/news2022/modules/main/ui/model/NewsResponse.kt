@@ -10,7 +10,7 @@ import java.util.ArrayList
  */
 data class NewsResponse(
     @SerializedName("articles")
-    val articles: ArrayList<Article>,
+    val articleModels: ArrayList<ArticleModel>,
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")

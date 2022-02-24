@@ -8,9 +8,9 @@ import com.google.gson.annotations.SerializedName
  * http://muhammad.com/
  */
 //TODO:ArticleModel шавад бехтар номи класс
-data class Article(
+data class ArticleModel(
     var id: Long,
-    @SerializedName("source") var source: Source?,
+    @SerializedName("source") var sourceModel: SourceModel?,
     @SerializedName("author") val author: String,
     @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,

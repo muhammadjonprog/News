@@ -19,9 +19,4 @@ abstract class BaseFragmentWithViewModel  <T : BaseViewModel> (clazz:Class<T>,@L
         ViewModelProvider(requireActivity())[clazz]
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//    }
-
 }

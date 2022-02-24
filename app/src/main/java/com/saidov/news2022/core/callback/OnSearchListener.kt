@@ -5,7 +5,7 @@ package com.saidov.news2022.core.callback
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
-interface OnSearchChangedListener {
+interface OnSearchListener {
 
     fun onSearch(query: String)
 

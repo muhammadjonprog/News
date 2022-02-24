@@ -1,4 +1,4 @@
-package com.saidov.news2022.app
+package com.saidov.news2022
 
 import android.app.Application
 import com.saidov.news2022.core.di.repositoryModule
@@ -13,13 +13,13 @@ import org.koin.core.context.startKoin
  * http://muhammad.com/
  */
 //TODO: NewsApplication номаша бехтар мешавад просто App гуем. Ва дар уровени папкахои core, modules... баробар гузорем. Набояд папкаи app-ба истад
-class NewsApplication : Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidLogger(org.koin.core.logger.Level.DEBUG)
-            androidContext(this@NewsApplication)
+            androidContext(this@App)
             modules(listOf(repositoryModule, vmModule))
         }
     }

@@ -1,37 +1,45 @@
 package com.saidov.news2022.modules.main.favorite
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.ProgressBar
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.saidov.news2022.R
+import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
-import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
+import com.saidov.news2022.core.fragment.BaseFragment
 
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
-import com.saidov.news2022.modules.main.ui.model.Article
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.view.MainActivity
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
-    MainViewModel::class.java, R.layout.fragment_favorites),
-    View.OnClickListener, View.OnLongClickListener, OnToolBarChangedListener {
+class FavoritesFragment : BaseFragment(R.layout.fragment_favorites),
+    View.OnClickListener, View.OnLongClickListener, OnToolBarChangedListener, OnSearchListener {
+
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     var listener: OnToolBarChangedListener? = null
-
-
+    private val viewModel: SharedViewModel by sharedViewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData(view)
-        initViewModel()
-
+        initObservers()
         //ToDO:Ивазкунии title бехтаращ дар даркорни onAttach шаавад бехтар, так как onAttach як маротиба чег зада мешавад
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         listener?.setToolbarName("Избранные")
     }
 
@@ -39,10 +47,9 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
         viewModel.searchByFavorite(query)
     }
 
-
     override fun onClick(v: View?) {
         v?.let {
-            val article = it.tag as Article
+            val article = it.tag as ArticleModel
             sendData(article)
         }
 
@@ -50,7 +57,7 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
 
     override fun onLongClick(v: View?): Boolean {
         v?.let {
-            val article = it.tag as Article
+            val article = it.tag as ArticleModel
             popupMenus(v, article)
         }
         return true
@@ -66,17 +73,17 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
         recyclerView.adapter = newsAdapter
 
     }
-    //ToDo: номи бехтар initObservers шавад бехтар - initViewModel - ин маънои дигар медихад
-    private fun initViewModel() {
+
+    private fun initObservers() {
+        //viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.allFavorite.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())
-
         }
         viewModel.loadFavorite()
         progressBar.visibility = View.INVISIBLE
     }
 
-    private fun popupMenus(v: View, item: Article) {
+    private fun popupMenus(v: View, item: ArticleModel) {
         val popupMenus = PopupMenu(v.context, v)
         popupMenus.inflate(R.menu.menu_popup_delete_favorites)
         popupMenus.setOnMenuItemClickListener {
@@ -103,7 +110,7 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
             .invoke(menu, true)
     }
 
-    private fun sendData(item: Article) {
+    private fun sendData(item: ArticleModel) {
         val bundle = Bundle()
         bundle.putString("title", item.title)
         bundle.putString("description", item.description)
@@ -117,11 +124,11 @@ class FavoritesFragment : BaseFragmentWithSharedViewModel<MainViewModel>(
     }
 
     override fun setToolbarName(title: String) {
-        activity?.actionBar?.title=title
+        activity?.actionBar?.title = title
     }
 
     override fun setToolBarBackVisibility(status: Boolean) {
-       activity?.actionBar?.setDisplayHomeAsUpEnabled(status)
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(status)
     }
 
     override fun clearToolBar() {

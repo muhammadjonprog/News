@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-import com.saidov.news2022.modules.main.ui.model.Article
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
 
 import com.saidov.news2022.R
 
@@ -47,12 +47,12 @@ class NewsAdapter(
         }
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<ArticleModel>() {
+        override fun areItemsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
             return oldItem == newItem
         }
     }

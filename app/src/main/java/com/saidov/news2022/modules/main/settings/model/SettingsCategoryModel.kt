@@ -1,8 +1,6 @@
 package com.saidov.news2022.modules.main.settings.model
 
 import com.google.gson.annotations.SerializedName
-import com.saidov.news2022.modules.main.ui.model.Article
-import java.util.ArrayList
 
 /**
  * Created by MUHAMMADJON SAIDOV on 06,февраль,2022

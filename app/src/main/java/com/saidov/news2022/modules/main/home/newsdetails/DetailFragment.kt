@@ -1,5 +1,6 @@
 package com.saidov.news2022.modules.main.home.newsdetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -18,6 +19,7 @@ class DetailFragment() :
     lateinit var urlNews: TextView
     lateinit var publishNews: TextView
     var listener: OnToolBarChangedListener? = null
+    var title: Any? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +33,7 @@ class DetailFragment() :
         listener?.setToolBarBackVisibility(true)
 
         val data = this.arguments
-        val title = data?.get("title")
+        title  = data?.get("title")
         val description = data?.get("description")
         val urlToImage = data?.get("urlToImage")
         val url = data?.get("url")
@@ -41,11 +43,16 @@ class DetailFragment() :
             .load(urlToImage)
             .into(imageNews)
 
-        listener?.setToolbarName(title = title as String)
         titleNews.text = title as CharSequence?
         descriptionNews.text = description as CharSequence?
         urlNews.text = url as CharSequence?
         publishNews.text = "Опубликовано: $publish" as CharSequence?
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener?.setToolbarName(title = title as String)
     }
 
     companion object{

@@ -3,8 +3,8 @@ package com.saidov.news2022.repository.dbrepository
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
-import com.saidov.news2022.modules.main.ui.model.Article
-import com.saidov.news2022.modules.main.ui.model.Source
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
+import com.saidov.news2022.modules.main.ui.model.SourceModel
 
 /**
  * Created by MUHAMMADJON SAIDOV on 30,январь,2022
@@ -14,26 +14,26 @@ import com.saidov.news2022.modules.main.ui.model.Source
  */
 class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRepository {
 
-    override fun saveHistory(article: Article) {
+    override fun saveHistory(articleModel: ArticleModel) {
         val sql = "INSERT or replace INTO History (author, title, description, url," +
-                " urlToImage, publishedAt, content, source) VALUES ('${article.author}', '${article.title}', " +
-                "'${article.description}','${article.url}','${article.urlToImage}'," +
-                "'${article.publishedAt}','${article.content}' ,'${article.source?.name}')"
+                " urlToImage, publishedAt, content, source) VALUES ('${articleModel.author}', '${articleModel.title}', " +
+                "'${articleModel.description}','${articleModel.url}','${articleModel.urlToImage}'," +
+                "'${articleModel.publishedAt}','${articleModel.content}' ,'${articleModel.sourceModel?.name}')"
         Execute(sql)
     }
 
-    override fun saveFavorite(article: Article) {
+    override fun saveFavorite(articleModel: ArticleModel) {
         val sql = "INSERT or replace INTO Favorite (author, title, description, url," +
-                " urlToImage, publishedAt, content, source) VALUES ('${article.author}', '${article.title}', " +
-                "'${article.description}','${article.url}','${article.urlToImage}'," +
-                "'${article.publishedAt}','${article.content}','${article.source?.name}')"
+                " urlToImage, publishedAt, content, source) VALUES ('${articleModel.author}', '${articleModel.title}', " +
+                "'${articleModel.description}','${articleModel.url}','${articleModel.urlToImage}'," +
+                "'${articleModel.publishedAt}','${articleModel.content}','${articleModel.sourceModel?.name}')"
         Execute(sql)
     }
 
     @SuppressLint("Range")
-    override fun getArticleHistory(): ArrayList<Article> {
-        val historyList = ArrayList<Article>()
-        val source: Source? = null
+    override fun getArticleHistory(): ArrayList<ArticleModel> {
+        val historyList = ArrayList<ArticleModel>()
+        val sourceModel: SourceModel? = null
         val sql = "SELECT * FROM History ORDER BY id DESC"
         val mCursor: Cursor? = Query(sql)
         if (mCursor != null) {
@@ -47,11 +47,11 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
                     val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
                     val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
                     val content = mCursor.getString(mCursor.getColumnIndex("content"))
-                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    sourceModel?.name = mCursor.getString(mCursor.getColumnIndex("source"))
                     historyList.add(
-                        Article(
+                        ArticleModel(
                             id,
-                            source,
+                            sourceModel,
                             author,
                             title,
                             description,
@@ -69,9 +69,9 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
     }
 
     @SuppressLint("Range")
-    override fun getArticleFavorite(): ArrayList<Article> {
-        val favoriteList = ArrayList<Article>()
-        val source: Source? = null
+    override fun getArticleFavorite(): ArrayList<ArticleModel> {
+        val favoriteList = ArrayList<ArticleModel>()
+        val sourceModel: SourceModel? = null
         val sql = "SELECT * FROM Favorite ORDER BY id DESC"
         val mCursor: Cursor? = Query(sql)
         if (mCursor != null) {
@@ -85,11 +85,11 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
                     val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
                     val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
                     val content = mCursor.getString(mCursor.getColumnIndex("content"))
-                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    sourceModel?.name = mCursor.getString(mCursor.getColumnIndex("source"))
                     favoriteList.add(
-                        Article(
+                        ArticleModel(
                             id,
-                            source,
+                            sourceModel,
                             author,
                             title,
                             description,
@@ -117,9 +117,9 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
     }
 
     @SuppressLint("Range")
-    override fun searchByHistory(query: String): ArrayList<Article> {
-        val searchList = ArrayList<Article>()
-        val source: Source? = null
+    override fun searchByHistory(query: String): ArrayList<ArticleModel> {
+        val searchList = ArrayList<ArticleModel>()
+        val sourceModel: SourceModel? = null
         val sql = "SELECT * FROM History WHERE title  LIKE  '%$query%'"
         val mCursor: Cursor? = Query(sql)
         if (mCursor != null) {
@@ -133,11 +133,11 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
                     val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
                     val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
                     val content = mCursor.getString(mCursor.getColumnIndex("content"))
-                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    sourceModel?.name = mCursor.getString(mCursor.getColumnIndex("source"))
                     searchList.add(
-                        Article(
+                        ArticleModel(
                             id,
-                            source,
+                            sourceModel,
                             author,
                             title,
                             description,
@@ -155,9 +155,9 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
     }
 
     @SuppressLint("Range")
-    override fun searchByFavorite(query: String): ArrayList<Article> {
-        val searchList = ArrayList<Article>()
-        val source: Source? = null
+    override fun searchByFavorite(query: String): ArrayList<ArticleModel> {
+        val searchList = ArrayList<ArticleModel>()
+        val sourceModel: SourceModel? = null
         val sql = "SELECT * FROM Favorite WHERE title  LIKE '%$query%'"
         val mCursor: Cursor? = Query(sql)
         if (mCursor != null) {
@@ -171,11 +171,11 @@ class SqlRepositoryImpl(context: Context) : MySQLiteOpenHelper(context), ISqlRep
                     val urlToImage = mCursor.getString(mCursor.getColumnIndex("urlToImage"))
                     val publishedAt = mCursor.getString(mCursor.getColumnIndex("publishedAt"))
                     val content = mCursor.getString(mCursor.getColumnIndex("content"))
-                    source?.name = mCursor.getString(mCursor.getColumnIndex("source"))
+                    sourceModel?.name = mCursor.getString(mCursor.getColumnIndex("source"))
                     searchList.add(
-                        Article(
+                        ArticleModel(
                             id,
-                            source,
+                            sourceModel,
                             author,
                             title,
                             description,

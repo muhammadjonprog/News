@@ -11,7 +11,7 @@ import okhttp3.Response
  * http://muhammad.com/
  */
 
-class ApiKeyInterceptor(context: Context) : BaseInterceptor(context) {
+class ApiKeyInterceptor() : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val newRequest = chain

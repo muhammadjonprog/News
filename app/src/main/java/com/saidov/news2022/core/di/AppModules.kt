@@ -1,7 +1,7 @@
 package com.saidov.news2022.core.di
 
 
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 import com.saidov.news2022.repository.dbrepository.ISqlRepository
 import com.saidov.news2022.repository.dbrepository.SqlRepositoryImpl
 import com.saidov.news2022.repository.networkrepository.repository.INetworkRepository
@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val vmModule = module {
     viewModel {
-        MainViewModel()
+        SharedViewModel()
     }
 }
 
@@ -27,7 +27,7 @@ val repositoryModule = module {
         SqlRepositoryImpl(context = get())
     }
     single<INetworkRepository> {
-        NetworkRepositoryImpl(get())
+        NetworkRepositoryImpl()
     }
 }
 

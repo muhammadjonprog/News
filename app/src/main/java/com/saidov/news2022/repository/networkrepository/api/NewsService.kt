@@ -13,7 +13,7 @@ import retrofit2.http.Query
  * http://muhammad.com/
  */
 //ToDO: Номи ин класса желательно Service гуем бехтар, яъне NewsService
-interface Api {
+interface NewsService {
 
     @GET("v2/top-headlines")
     fun getNewsByCategory(

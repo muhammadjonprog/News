@@ -6,17 +6,18 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.saidov.news2022.R
+import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
 import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
 import com.saidov.news2022.modules.main.home.ui.adapter.PagerAdapter
 import com.saidov.news2022.modules.main.home.ui.model.TabLayoutModel
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 
 class HomeFragment :
-    BaseFragmentWithSharedViewModel<MainViewModel>(
-        MainViewModel::class.java,
+    BaseFragmentWithSharedViewModel<SharedViewModel>(
+        SharedViewModel::class.java,
         R.layout.fragment_home
-    ) {
+    ), OnSearchListener {
 
     lateinit var pagerAdapter: PagerAdapter
     lateinit var tabLayout: TabLayout
@@ -32,7 +33,9 @@ class HomeFragment :
 
     override fun onSearch(query: String) {
         if (isResumed) {
-            pagerAdapter.getFragment(tabLayout.selectedTabPosition).onSearch(query = query)
+            val pageActive =
+                pagerAdapter.getFragment(tabLayout.selectedTabPosition) as OnSearchListener
+            pageActive.onSearch(query)
         }
     }
 
@@ -44,7 +47,14 @@ class HomeFragment :
             for (i in it) {
                 if (i.isChecked) {
                     viewModel.addToHash(i.category)
-                    pagerAdapter.addFragment(TabLayoutModel(ViewPagerFragment.newInstance(i.category, i.country), i.name))
+                    pagerAdapter.addFragment(
+                        TabLayoutModel(
+                            ViewPagerFragment.newInstance(
+                                i.category,
+                                i.country
+                            ), i.name
+                        )
+                    )
                 } else {
                     viewModel.removeFromHash(i.category)
                 }
@@ -55,6 +65,7 @@ class HomeFragment :
             tab.text = pagerAdapter.getTableLayoutTitle(position)
         }.attach()
     }
+
     companion object {
         fun newInstance(listener: OnToolBarChangedListener?): HomeFragment {
             val fragment: HomeFragment = HomeFragment()

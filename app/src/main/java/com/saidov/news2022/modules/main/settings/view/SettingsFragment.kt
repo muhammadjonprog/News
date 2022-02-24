@@ -10,12 +10,12 @@ import com.saidov.news2022.R
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
 import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
 import com.saidov.news2022.modules.main.settings.adapter.SettingsCategoryAdapter
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 
 
 
 class SettingsFragment() :
-    BaseFragmentWithSharedViewModel<MainViewModel>(MainViewModel::class.java,R.layout.fragment_settings) {
+    BaseFragmentWithSharedViewModel<SharedViewModel>(SharedViewModel::class.java,R.layout.fragment_settings) {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsAdapter: SettingsCategoryAdapter

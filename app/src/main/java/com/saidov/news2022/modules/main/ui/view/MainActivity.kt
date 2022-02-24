@@ -12,20 +12,24 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.saidov.news2022.R
 import com.saidov.news2022.core.activity.BaseActivity
+import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
-import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.modules.main.favorite.FavoritesFragment
 import com.saidov.news2022.modules.main.history.HistoryFragment
 import com.saidov.news2022.modules.main.home.ui.view.HomeFragment
 import com.saidov.news2022.modules.main.settings.view.SettingsFragment
+import com.saidov.news2022.modules.main.ui.vm.MainViewModelProviderFactory
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 
 
-class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarChangedListener {
+class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarChangedListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var bottomNav: BottomNavigationView
+    private lateinit var navView: BottomNavigationView
     private lateinit var searchView: SearchView
     private val TAG = "A"
 
@@ -34,27 +38,13 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
         setContentView(R.layout.activity_main)
         Log.e(TAG, "Activity created")
 
-        bottomNav = findViewById(R.id.bottomNav)
-        bottomNav.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        navView = findViewById(R.id.bottomNav)
+        navView.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        navView.setOnNavigationItemSelectedListener(this)
+
+
         //ToDo: Бехтар мешавад дар дарони onCreate не, дар дарони худи MainActivity OnNavigationItemSelectedListener-ро эълон кунид
-        bottomNav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.newsNav -> {
-                    replaceFragment(HomeFragment.newInstance(listener = this))
-                }
-                R.id.historyNav -> {
-                    replaceFragment(HistoryFragment.newInstance(listener = this))
-                }
-                R.id.favoriteNav -> {
-                    replaceFragment(FavoritesFragment.newInstance(listener = this))
-                }
-                R.id.settingsNav -> {
-                    replaceFragment(SettingsFragment.newInstance(listener = this))
-                }
-            }
-            true
-        }
-        bottomNav.selectedItemId = R.id.newsNav
+        onNavigationItemSelected(navView.menu.getItem(0))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,23 +78,16 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let {
             val fragment: Fragment? = supportFragmentManager.findFragmentByTag(javaClass.simpleName)
-            fragment as BaseFragment?
-            if (query.toString().isNotEmpty()){
+            fragment as OnSearchListener?
+            if (query.toString().isNotEmpty()) {
                 fragment?.onSearch(query = it)
             }
-
         }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-//        query?.let {
-//            val fragment: Fragment? = supportFragmentManager.findFragmentByTag(javaClass.simpleName)
-//            fragment as BaseFragment?
-//            if (query.toString().isNotEmpty()){
-//                fragment?.onSearch(query = it)
-//            }
-//        }
+
         return true
     }
 
@@ -121,8 +104,26 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
     override fun clearToolBar() {
         val item = findViewById<View>(R.id.search_menu) as MenuItem
         item.isVisible = false
-        invalidateOptionsMenu()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.newsNav -> {
+                replaceFragment(HomeFragment.newInstance(listener = this))
+            }
+            R.id.historyNav -> {
+                replaceFragment(HistoryFragment.newInstance(listener = this))
+            }
+            R.id.favoriteNav -> {
+                replaceFragment(FavoritesFragment.newInstance(listener = this))
+            }
+            R.id.settingsNav -> {
+                replaceFragment(SettingsFragment.newInstance(listener = this))
+            }
+        }
+        return true
     }
 }
+
 
 

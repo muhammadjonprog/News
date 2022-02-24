@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  *
  */
 //TODO:SourceModel шавад бехтар номи класс
-data class Source(
+data class SourceModel(
     @SerializedName("id")
     val id: Any,
     @SerializedName("name")

@@ -19,12 +19,13 @@ import java.sql.SQLException
  * http://muhammad.com/
  */
 
-open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(context,
-    DATABASE_NAME,null, DB_VERSION
+open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(
+    context,
+    DATABASE_NAME, null, DB_VERSION
 ) {
 
-    private  var DB_PATH: String
-   open var mDataBase: SQLiteDatabase? = null
+    private var DB_PATH: String
+    open var mDataBase: SQLiteDatabase? = null
 
     init {
         DB_PATH = "/data/data/" + context.packageName + "/databases/"
@@ -62,7 +63,6 @@ open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(c
                 }
             }
         }
-
     }
 
     @Throws(IOException::class)
@@ -108,7 +108,11 @@ open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(c
     fun open(): Boolean {
         try {
             mDataBase =
-                SQLiteDatabase.openDatabase(DB_PATH + DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE)
+                SQLiteDatabase.openDatabase(
+                    DB_PATH + DATABASE_NAME,
+                    null,
+                    SQLiteDatabase.OPEN_READWRITE
+                )
         } catch (ex: Exception) {
             Log.e(TAG, ex.message!!)
         }
@@ -123,7 +127,7 @@ open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(c
         }
     }
 
-    fun ExecuteWithResult(sql: String?):Boolean {
+    fun ExecuteWithResult(sql: String?): Boolean {
         return try {
             mDataBase?.execSQL(sql)
             true
@@ -133,7 +137,7 @@ open class MySQLiteOpenHelper(private val context: Context) : SQLiteOpenHelper(c
         }
     }
 
-    fun Query(sql: String?) : Cursor? {
+    fun Query(sql: String?): Cursor? {
         var cur: Cursor? = null
         try {
             cur = mDataBase?.rawQuery(sql, null)

@@ -1,43 +1,53 @@
 package com.saidov.news2022.modules.main.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.ProgressBar
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
-import com.saidov.news2022.modules.main.ui.model.Article
+import com.saidov.news2022.modules.main.ui.model.ArticleModel
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
-import com.saidov.news2022.modules.main.ui.vm.MainViewModel
+import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 import com.saidov.news2022.R
+import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
+import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
-import com.saidov.news2022.modules.main.settings.view.SettingsFragment
+import com.saidov.news2022.modules.main.ui.view.MainActivity
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewModel::class.java,R.layout.fragment_history),
-    View.OnClickListener, View.OnLongClickListener {
+class HistoryFragment : BaseFragment(R.layout.fragment_history),
+
+    View.OnClickListener, View.OnLongClickListener, OnSearchListener {
     lateinit var newsAdapter: NewsAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     var listener: OnToolBarChangedListener? = null
-
+    private val viewModel: SharedViewModel by sharedViewModel()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData(view)
-        initViewModel()
-        listener?.setToolbarName("История")
+        initObservers()
+        //ToDO:Ивазкунии title бехтаращ дар даркорни onAttach шаавад бехтар, так как onAttach як маротиба чег зада мешавад
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener?.setToolbarName("Настройки")
     }
 
     override fun onSearch(query: String) {
         viewModel.searchByHistory(query)
     }
-
 
     private fun initData(view: View) {
         recyclerView = view.findViewById<RecyclerView>(R.id.recHistory)
@@ -49,7 +59,7 @@ class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewM
         recyclerView.adapter = newsAdapter
     }
 
-    private fun initViewModel() {
+    private fun initObservers() {
         viewModel.allHistory.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())
         }
@@ -59,7 +69,7 @@ class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewM
 
     override fun onClick(v: View?) {
         v?.let {
-            val article = it.tag as Article
+            val article = it.tag as ArticleModel
             sendData(article)
         }
 
@@ -67,13 +77,13 @@ class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewM
 
     override fun onLongClick(v: View?): Boolean {
         v?.let {
-            val article = it.tag as Article
+            val article = it.tag as ArticleModel
             popupMenus(v, article)
         }
         return true
     }
 
-    private fun popupMenus(v: View, item: Article) {
+    private fun popupMenus(v: View, item: ArticleModel) {
         val popupMenus = PopupMenu(v.context, v)
         popupMenus.inflate(R.menu.menu_popup_delete_history)
         popupMenus.setOnMenuItemClickListener {
@@ -101,7 +111,7 @@ class HistoryFragment : BaseFragmentWithSharedViewModel<MainViewModel>(MainViewM
 
     }
 
-    private fun sendData(item: Article) {
+    private fun sendData(item: ArticleModel) {
         val bundle = Bundle()
         bundle.putString("title", item.title)
         bundle.putString("description", item.description)
