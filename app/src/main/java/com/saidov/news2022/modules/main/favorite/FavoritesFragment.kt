@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.ProgressBar
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites),
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     var listener: OnToolBarChangedListener? = null
-    private val viewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: SharedViewModel by activityViewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData(view)
@@ -44,7 +46,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites),
     }
 
     override fun onSearch(query: String) {
-        viewModel.searchByFavorite(query)
+            viewModel.searchByFavorite(query)
+
     }
 
     override fun onClick(v: View?) {
@@ -52,7 +55,6 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites),
             val article = it.tag as ArticleModel
             sendData(article)
         }
-
     }
 
     override fun onLongClick(v: View?): Boolean {
@@ -71,11 +73,9 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites),
         recyclerView.layoutManager = manager
         newsAdapter = NewsAdapter(this, this)
         recyclerView.adapter = newsAdapter
-
     }
 
     private fun initObservers() {
-        //viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.allFavorite.observe(viewLifecycleOwner) {
             newsAdapter.differ.submitList(it.toList())
         }

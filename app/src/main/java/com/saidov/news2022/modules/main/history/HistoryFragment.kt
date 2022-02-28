@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.ProgressBar
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +19,7 @@ import com.saidov.news2022.R
 import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
 import com.saidov.news2022.core.fragment.BaseFragment
-import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
-import com.saidov.news2022.modules.main.ui.view.MainActivity
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryFragment : BaseFragment(R.layout.fragment_history),
 
@@ -30,7 +28,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history),
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     var listener: OnToolBarChangedListener? = null
-    private val viewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: SharedViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +40,7 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history),
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener?.setToolbarName("Настройки")
+        listener?.setToolbarName("История")
     }
 
     override fun onSearch(query: String) {

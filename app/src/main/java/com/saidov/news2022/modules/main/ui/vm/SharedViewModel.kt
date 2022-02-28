@@ -9,6 +9,9 @@ import com.saidov.news2022.modules.main.ui.model.NewsResponse
 import com.saidov.news2022.other.Constants.Companion.SEARCH_DELAY
 import com.saidov.news2022.repository.networkrepository.event.Resource
 import kotlinx.coroutines.*
+import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 /**
  * Created by MUHAMMADJON SAIDOV on 22,январь,2022
@@ -58,17 +61,6 @@ class SharedViewModel() : BaseViewModel() {
         }
     }
 
-    fun newsByCategory(category: String, code: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val livedata = mNewsMutableHash[category]
-            livedata?.let {
-                request()
-//                asyncRequest(livedata) {
-//                    network.getApi().getNewsByCategory(countryCode = code, category = category)
-//                }
-            }
-        }
-    }
 
     fun loadHistory() {
         viewModelScope.launch {
@@ -128,6 +120,40 @@ class SharedViewModel() : BaseViewModel() {
         }
     }
 
+//    fun newsByCategory(category: String, code: String) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val service = network.getApi()
+//            val response = service.getNewsByCategorySus(code, category)
+//            val liveData = mNewsMutableHash[category]
+//            try {
+//                if (response.code()==200) {
+//                    request(liveData, response)
+//                }else{
+//                    liveData?.value = Resource.Error("Нет подключение к интернету!")
+//                }
+//            } catch (t: Throwable) {
+//                when (t) {
+//                    is SocketTimeoutException -> liveData?.value = Resource.Error("Тайм аут!")
+//                    is ConnectException -> liveData?.value = Resource.Error("Ошибка подключения!")
+//                    is IOException -> liveData?.value = Resource.Error("Нет подключение к интернету!")
+//                }
+//            }
+//
+//        }
+//    }
+
+
+    fun newsByCategory(category: String, code: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val livedata = mNewsMutableHash[category]
+            livedata?.let {
+                asyncRequest(livedata) {
+                    network.getApi().getNewsByCategory(countryCode = code, category = category)
+                }
+            }
+        }
+    }
+
     fun searchByTitle(queryInTitle: String, key: String) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(SEARCH_DELAY)
@@ -139,7 +165,9 @@ class SharedViewModel() : BaseViewModel() {
                 }
             }
         }
+
     }
+
 
     override fun onCleared() {
         super.onCleared()

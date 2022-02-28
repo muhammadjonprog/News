@@ -12,8 +12,8 @@ import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.saidov.news2022.R
 import com.saidov.news2022.core.activity.BaseActivity
 import com.saidov.news2022.core.callback.OnSearchListener
@@ -22,12 +22,11 @@ import com.saidov.news2022.modules.main.favorite.FavoritesFragment
 import com.saidov.news2022.modules.main.history.HistoryFragment
 import com.saidov.news2022.modules.main.home.ui.view.HomeFragment
 import com.saidov.news2022.modules.main.settings.view.SettingsFragment
-import com.saidov.news2022.modules.main.ui.vm.MainViewModelProviderFactory
-import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 
 
 class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarChangedListener,
     BottomNavigationView.OnNavigationItemSelectedListener {
+
 
     private lateinit var navView: BottomNavigationView
     private lateinit var searchView: SearchView
@@ -41,7 +40,6 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener, OnToolBarCh
         navView = findViewById(R.id.bottomNav)
         navView.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         navView.setOnNavigationItemSelectedListener(this)
-
 
         //ToDo: Бехтар мешавад дар дарони onCreate не, дар дарони худи MainActivity OnNavigationItemSelectedListener-ро эълон кунид
         onNavigationItemSelected(navView.menu.getItem(0))

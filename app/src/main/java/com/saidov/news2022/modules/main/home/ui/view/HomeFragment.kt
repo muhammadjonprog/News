@@ -8,21 +8,21 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.saidov.news2022.R
 import com.saidov.news2022.core.callback.OnSearchListener
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
-import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
+import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.modules.main.home.ui.adapter.PagerAdapter
 import com.saidov.news2022.modules.main.home.ui.model.TabLayoutModel
 import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import androidx.fragment.app.activityViewModels
 
-class HomeFragment :
-    BaseFragmentWithSharedViewModel<SharedViewModel>(
-        SharedViewModel::class.java,
-        R.layout.fragment_home
-    ), OnSearchListener {
+
+class HomeFragment : BaseFragment(R.layout.fragment_home), OnSearchListener {
 
     lateinit var pagerAdapter: PagerAdapter
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager2
     var listener: OnToolBarChangedListener? = null
+    private val viewModel: SharedViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,8 +33,7 @@ class HomeFragment :
 
     override fun onSearch(query: String) {
         if (isResumed) {
-            val pageActive =
-                pagerAdapter.getFragment(tabLayout.selectedTabPosition) as OnSearchListener
+            val pageActive = pagerAdapter.getFragment(tabLayout.selectedTabPosition) as OnSearchListener
             pageActive.onSearch(query)
         }
     }

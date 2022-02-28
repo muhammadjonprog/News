@@ -50,10 +50,7 @@ class DetailFragment() :
     }
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener?.setToolbarName(title = title as String)
-    }
+
 
     companion object{
         fun newInstance(listener: OnToolBarChangedListener?):DetailFragment{

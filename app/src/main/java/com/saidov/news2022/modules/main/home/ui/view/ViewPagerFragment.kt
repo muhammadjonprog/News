@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.ProgressBar
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +16,6 @@ import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.modules.main.home.newsdetails.DetailFragment
 import com.saidov.news2022.modules.main.home.ui.adapter.NewsAdapter
 import com.saidov.news2022.modules.main.ui.model.ArticleModel
-import com.saidov.news2022.modules.main.ui.view.MainActivity
 import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
 import com.saidov.news2022.repository.networkrepository.event.Resource
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -28,7 +27,7 @@ class ViewPagerFragment() : BaseFragment(R.layout.fragment_viewpager_news),
     lateinit var progressBar: ProgressBar
     private var category: String = ""
     private var codeCountry: String = ""
-    private val viewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: SharedViewModel by activityViewModels()
 
 
     private fun initData(view: View) {
@@ -58,7 +57,6 @@ class ViewPagerFragment() : BaseFragment(R.layout.fragment_viewpager_news),
                 is Resource.Loading -> {
                     showProgressBar()
                 }
-
             }
         })
         viewModel.newsByCategory(category, codeCountry)

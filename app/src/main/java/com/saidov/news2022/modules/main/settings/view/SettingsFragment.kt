@@ -2,24 +2,25 @@ package com.saidov.news2022.modules.main.settings.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saidov.news2022.R
 import com.saidov.news2022.core.callback.OnToolBarChangedListener
-import com.saidov.news2022.core.fragment.BaseFragmentWithSharedViewModel
+import com.saidov.news2022.core.fragment.BaseFragment
 import com.saidov.news2022.modules.main.settings.adapter.SettingsCategoryAdapter
 import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-
-class SettingsFragment() :
-    BaseFragmentWithSharedViewModel<SharedViewModel>(SharedViewModel::class.java,R.layout.fragment_settings) {
+class SettingsFragment() : BaseFragment(R.layout.fragment_settings) {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var settingsAdapter: SettingsCategoryAdapter
     var listener: OnToolBarChangedListener? = null
+    private val viewModel: SharedViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

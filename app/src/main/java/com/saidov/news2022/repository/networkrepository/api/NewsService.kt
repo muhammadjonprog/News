@@ -13,7 +13,7 @@ import retrofit2.http.Query
  * http://muhammad.com/
  */
 //ToDO: Номи ин класса желательно Service гуем бехтар, яъне NewsService
-interface NewsService {
+interface NewsService  {
 
     @GET("v2/top-headlines")
     fun getNewsByCategory(
@@ -30,4 +30,20 @@ interface NewsService {
         searchQuery: String
     ): Call<NewsResponse>
 
+
+
+    @GET("v2/top-headlines")
+    suspend fun getNewsByCategorySus(
+        @Query("country")
+        countryCode: String?,
+        @Query("category")
+        category: String
+    ):Response<NewsResponse>
+
+
+    @GET("v2/everything")
+    suspend fun searchSus(
+        @Query("q")
+        searchQuery: String
+    ):Response<NewsResponse>
 }
