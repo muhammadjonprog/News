@@ -2,11 +2,8 @@ package com.saidov.news2022.core.di
 
 
 import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
-import com.saidov.news2022.repository.dbrepository.ISqlRepository
-import com.saidov.news2022.repository.dbrepository.SqlRepositoryImpl
-import com.saidov.news2022.repository.networkrepository.repository.INetworkRepository
-import com.saidov.news2022.repository.networkrepository.repository.NetworkRepositoryImpl
-import org.koin.androidx.viewmodel.dsl.viewModel
+import com.saidov.news2022.repository.dbrepository.LocalDataSource
+import com.saidov.news2022.repository.networkrepository.repository.NetworkDataSource
 
 import org.koin.dsl.module
 
@@ -16,18 +13,17 @@ import org.koin.dsl.module
  * http://muhammad.com/
  */
 
-val vmModule = module {
-    viewModel {
-        SharedViewModel()
+val repositoryModule = module {
+    single {
+        LocalDataSource.Base(context = get())
+    }
+    single {
+        NetworkDataSource.Base()
     }
 }
-
-val repositoryModule = module {
-    single<ISqlRepository> {
-        SqlRepositoryImpl(context = get())
-    }
-    single<INetworkRepository> {
-        NetworkRepositoryImpl()
+val vm = module {
+    single {
+        SharedViewModel(get())
     }
 }
 

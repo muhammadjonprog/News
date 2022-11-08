@@ -7,4 +7,11 @@
     <string name="science">Наука</string>
     <string name="business">Бизнес</string>
     <string name="textCategory">Выберите категории новостей, которые вы хотите увидеть на главном экране.</string>
+    <string name="delete_news">Новости успешно удалено</string>
+    <string name="cancel">Отмена</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_favorites">Избранные</string>
+    <string name="menu_history">История</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="published">Опубликовано:</string>
 </resources>

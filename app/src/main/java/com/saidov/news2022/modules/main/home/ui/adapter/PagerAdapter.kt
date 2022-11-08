@@ -10,6 +10,7 @@ import com.saidov.news2022.modules.main.home.ui.model.TabLayoutModel
  * saidov.developer@gmail.com
  * http://muhammad.com/
  */
+
 class PagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment.childFragmentManager, fragment.lifecycle) {
 
