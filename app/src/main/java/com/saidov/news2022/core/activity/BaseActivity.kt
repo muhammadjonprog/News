@@ -17,7 +17,7 @@ abstract class BaseActivity : AppCompatActivity() {
         container_id: Int, fragment: Fragment, addToBackStack: Boolean = false, tag: String? = null
     ) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView, fragment, tag)
+            replace(container_id, fragment, tag)
             if (addToBackStack) addToBackStack(tag)
             commit()
         }
