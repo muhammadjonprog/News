@@ -4,14 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.main.ui.view.MainActivity">
+    tools:context=".modules.main.ui.view.MainActivity"
+    android:background="#F1ECEC">
 
-<!--    <include-->
-<!--        android:id="@+id/tool_bar"-->
-<!--        layout="@layout/toolbar"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -40,10 +35,10 @@
                             android:id="@+id/titleDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
+                            android:paddingStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:layout_marginRight="16dp"
                             android:fontFamily="@font/roboto"
+                            android:background="@color/white"
                             android:text="Tesla removes dates about Cybertruck production from its website"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -53,33 +48,24 @@
                             android:id="@+id/descriptionDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginRight="16dp"
+                            android:paddingStart="16dp"
+                             android:layout_marginTop="16dp"
+                            android:paddingRight="16dp"
+                             android:background="@color/white"
                             android:fontFamily="@font/roboto"
                             android:text="Tesla removes dates about Cybertruck production from its website Cybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its websiteCybertruck production from its website"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="normal" />
 
-<!--                        <TextView-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginLeft="16dp"-->
-<!--                            android:layout_marginTop="16dp"-->
-<!--                            android:layout_marginRight="16dp"-->
-<!--                            android:fontFamily="@font/roboto"-->
-<!--                            android:text="Read our full coverage on Tesla:"-->
-<!--                            android:textColor="#000000"-->
-<!--                            android:textSize="16sp"-->
-<!--                            android:textStyle="normal" />-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
+                android:paddingStart="16dp"
+                android:paddingRight="16dp"
                 android:fontFamily="@font/roboto"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
                 android:text="Ссылка на новости:"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -91,13 +77,13 @@
                 android:id="@+id/urlNewsDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
+                android:paddingStart="16dp"
+                android:paddingLeft="16dp"
                 android:autoLink="web"
                 android:fontFamily="@font/roboto"
                 android:linksClickable="true"
                 android:text=""
+                android:background="@color/white"
                 android:textColor="#000000"
                 android:textColorLink="#283593"
                 android:textSize="16sp"
@@ -107,9 +93,10 @@
                             android:id="@+id/publishDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
+                            android:paddingRight="16dp"
+                            android:paddingStart="16dp"
+                            android:background="@color/white"
                             android:layout_marginTop="16dp"
-                            android:layout_marginRight="16dp"
                             android:fontFamily="@font/roboto"
                             android:text="First Published: Fri, January 14 2022. 11:34 IST"
                             android:textColor="#000000"
