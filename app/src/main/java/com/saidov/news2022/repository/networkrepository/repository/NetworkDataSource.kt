@@ -23,7 +23,7 @@ interface NetworkDataSource {
             val logging = HttpLoggingInterceptor()
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
             return OkHttpClient.Builder().addInterceptor(logging)
-                .addNetworkInterceptor(ApiKeyInterceptor()).build()
+               .build()
         }
 
         override fun getNewsService(): NewsService {

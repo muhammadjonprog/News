@@ -7,7 +7,7 @@ package com.saidov.news2022.other
  */
 class Constants {
     companion object {
-        const val API_KEY = "9a08716b46e54472ae8e71c450b67d2c"
+        const val API_KEY = "c96bcb69525f4ffc8abe11773b2c27c0"
         const val BASE_URL = "https://newsapi.org"
         const val DATABASE_NAME = "newsdb.db"
         const val SEARCH_DELAY = 500L

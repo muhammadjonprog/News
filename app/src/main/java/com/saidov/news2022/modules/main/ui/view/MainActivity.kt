@@ -19,6 +19,7 @@ import com.saidov.news2022.modules.main.history.HistoryFragment
 import com.saidov.news2022.modules.main.home.ui.view.HomeFragment
 import com.saidov.news2022.modules.main.settings.view.SettingsFragment
 import com.saidov.news2022.modules.main.ui.vm.SharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.properties.Delegates
 
 
@@ -27,7 +28,7 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener,
 
     private var navView: BottomNavigationView by Delegates.notNull()
     private var searchView: SearchView by Delegates.notNull()
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

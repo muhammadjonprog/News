@@ -39,12 +39,12 @@ class SharedViewModel(private val dataSourceRepository: DataSourceRepository) : 
 
     private val _settingsCategory = MutableLiveData<ArrayList<SettingsCategoryModel>>().apply {
         val list: ArrayList<SettingsCategoryModel> = ArrayList<SettingsCategoryModel>().apply {
-            add(SettingsCategoryModel("sport", "ru", "ru", "Спорт", true))
-            add(SettingsCategoryModel("business", "ru", "ru", "Бизнес", true))
-            add(SettingsCategoryModel("science", "ru", "ru", "Наука", true))
-            add(SettingsCategoryModel("politics", "ru", "ru", "Политика", true))
-            add(SettingsCategoryModel("technology", "ru", "ru", "Технологии", true))
-            add(SettingsCategoryModel("entertainment", "ru", "ru", "Развлечение", true))
+            add(SettingsCategoryModel("sport", "us", "us", "Спорт", true))
+            add(SettingsCategoryModel("business", "us", "us", "Бизнес", true))
+            add(SettingsCategoryModel("science", "us", "us", "Наука", true))
+            add(SettingsCategoryModel("politics", "us", "us", "Политика", true))
+            add(SettingsCategoryModel("technology", "us", "us", "Технологии", true))
+            add(SettingsCategoryModel("entertainment", "us", "us", "Развлечение", true))
         }
         value = list
     }

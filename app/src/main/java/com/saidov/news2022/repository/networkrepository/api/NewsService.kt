@@ -20,7 +20,9 @@ interface NewsService  {
         @Query("country")
         countryCode: String?,
         @Query("category")
-        category: String
+        category: String,
+        @Query("apiKey")
+        apiKey: String = API_KEY
     ) : Call<NewsResponse>
 
 
